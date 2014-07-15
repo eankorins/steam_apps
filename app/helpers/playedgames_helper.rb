@@ -1,0 +1,2 @@
+module PlayedgamesHelper
+end

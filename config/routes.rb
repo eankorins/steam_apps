@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :playedgames
+
+  resources :players
+
+  resources :games
+  root 'players#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
