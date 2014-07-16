@@ -1,7 +1,6 @@
 class PlayersController < ApplicationController
   before_action :set_player, only: [:show, :edit, :update, :destroy]
-
-  apikey = "A8229F479840DA66362A59443FF717CF"
+  include PlayersHelper
     # GET /players"
   # GET /players.json
   def index
@@ -11,8 +10,10 @@ class PlayersController < ApplicationController
   # GET /players/1
   # GET /players/1.json
   def show
+
     @player = Player.find(params[:id])
-    @playedgames = @player.playedgames
+    @playedgames = @player.playedgames.sort_by{ | x | x.game.name}
+    
     @games = Game.all
   end
 
