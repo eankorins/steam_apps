@@ -15,7 +15,13 @@ module Steam
       puts options
       
       response = @faraday.public_send(method) do |request|
-        request.url(url, options)
+        begin 
+          request.url(url, options) 
+        rescue => e
+          puts e
+          sleep(2) 
+          request(method, url, options)
+        end
       end
 
       response.body

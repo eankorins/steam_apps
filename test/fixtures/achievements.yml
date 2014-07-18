@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  defaultvalue: 1
+  displayname: MyString
+  hidden: 1
+  description: MyString
+  icon: MyString
+  icongray: MyString
+
+two:
+  name: MyString
+  defaultvalue: 1
+  displayname: MyString
+  hidden: 1
+  description: MyString
+  icon: MyString
+  icongray: MyString

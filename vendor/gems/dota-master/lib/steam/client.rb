@@ -9,6 +9,7 @@ require 'steam/profile'
 require 'steam/ban'
 require 'steam/friend'
 require 'steam/owned_app'
+require 'steam/game_scheme'
 
 module Steam
   class Client
@@ -115,7 +116,13 @@ module Steam
         friends.map { |friend| Friend.new(friend) }
       end
     end
+    def game_scheme(id)
+      response = run_request('GetSchemaForGame', { appid: id}, 'ISteamUserStats', VERSIONS[2])
 
+      if response && (available_stats = response['game']['availableGameStats'])
+        GameScheme.new(available_stats)
+      end
+    end
     #List of apps available on steam
     #
     #@return [Array<Steam::App>] an array of apps

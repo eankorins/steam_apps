@@ -33,7 +33,9 @@ Rails.application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
-
+  Steam.configure do |config| 
+    config.api_key = 'A8229F479840DA66362A59443FF717CF'
+  end
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end

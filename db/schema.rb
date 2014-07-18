@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140716175806) do
+ActiveRecord::Schema.define(version: 20140717082939) do
+
+  create_table "achievements", force: true do |t|
+    t.string   "name"
+    t.integer  "game_id"
+    t.integer  "defaultvalue"
+    t.string   "displayname"
+    t.integer  "hidden"
+    t.string   "description"
+    t.string   "icon"
+    t.string   "icongray"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "games", force: true do |t|
     t.string   "name"

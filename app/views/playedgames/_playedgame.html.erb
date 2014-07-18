@@ -1,3 +1,4 @@
 <div>
 	<%= link_to playedgame.game.name , playedgame.game rescue playedgame.game_id %>
+	 <%= (playedgame.playedtime / 60).round(2) %> hrs
 </div>

@@ -4,14 +4,35 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.json
   def index
+    #get_apps
+    @games = Game.all.sort_by { |g| g.name}
 
-    get_apps
-    @games = Game.all
+    # @games.each do |g|
+    #   get_scheme(g)
+    #   sleep(2)
+    # end
   end
-  
+  def get_scheme(game)
+    scheme = Steam.game_scheme(game.appid)
+
+    if scheme && scheme.achievements
+      scheme.achievements.each do |a|
+        game.achievements.create(
+          name: a.name, 
+          defaultvalue: a.value, 
+          displayname: a.display_name, 
+          hidden: a.hidden, 
+          description: a.description, 
+          icon: a.icon, 
+          icongray: a.icongray)
+      end
+    end
+  end
   # GET /games/1
   # GET /games/1.json
   def show
+    @game = Game.find(params[:id])
+    get_scheme(@game)
   end
 
   # GET /games/new

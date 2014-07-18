@@ -19,9 +19,6 @@
     <%= f.label :steamid %><br>
     <%= f.text_field :steamid %>
   </div>
-  <div class="field">
-    <%= collection_check_boxes(:player, :game_ids, Game.all, :id, :name) %>
-  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
