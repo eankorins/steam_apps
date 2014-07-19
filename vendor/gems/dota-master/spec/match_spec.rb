@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Steam::Match do
   before do
-    stub_request(:get, 'https://api.steampowered.com/ISteam2Match_570/GetMatchDetails/V001/?key=TEST_API_KEY&match_id=27110133').
+    stub_request(:get, 'https://api.steampowered.com/ISteam2Match_570/GetMatchDetails/V001/?key=A8229F479840DA66362A59443FF717CF&match_id=27110133').
       to_return(status: 200, body: fixture(:match))
   end
 

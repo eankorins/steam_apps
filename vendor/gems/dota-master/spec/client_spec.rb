@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe Steam::Client do
   it 'returns match' do
-    stub_request(:get,  'https://api.steampowered.com/ISteam2Match_570/GetMatchDetails/V001/?key=TEST_API_KEY&match_id=27110133').
+    stub_request(:get,  'https://api.steampowered.com/ISteam2Match_570/GetMatchDetails/V001/?key=A8229F479840DA66362A59443FF717CF&match_id=27110133').
+      with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faradayv v0.8.9'}).
       to_return(status: 200, body: fixture(:match))
 
     match = client.match(27110133)
@@ -10,7 +11,8 @@ describe Steam::Client do
   end
 
   it 'returns nil if there is no match for current id' do
-    stub_request(:get,  'https://api.steampowered.com/ISteam2Match_570/GetMatchDetails/V001/?key=TEST_API_KEY&match_id=27110133').
+    stub_request(:get,  'https://api.steampowered.com/ISteam2Match_570/GetMatchDetails/V001/?key=A8229F479840DA66362A59443FF717CF&match_id=27110133').
+      with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faradayv v0.8.9'}).
       to_return(status: 200, body: {})
 
     match = client.match(27110133)
@@ -18,7 +20,8 @@ describe Steam::Client do
   end
 
   it 'returns leagues' do
-    stub_request(:get,  'https://api.steampowered.com/ISteam2Match_570/GetLeagueListing/V001/?key=TEST_API_KEY').
+    stub_request(:get,  'https://api.steampowered.com/ISteam2Match_570/GetLeagueListing/V001/?key=A8229F479840DA66362A59443FF717CF').
+      with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faradayv v0.8.9'}).
       to_return(status: 200, body: fixture(:league_listing))
 
     leagues = client.leagues
@@ -27,7 +30,8 @@ describe Steam::Client do
   end
 
   it 'returns nil if there are no leagues' do
-    stub_request(:get,  'https://api.steampowered.com/ISteam2Match_570/GetLeagueListing/V001/?key=TEST_API_KEY').
+    stub_request(:get,  'https://api.steampowered.com/ISteam2Match_570/GetLeagueListing/V001/?key=A8229F479840DA66362A59443FF717CF').
+      with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faradayv v0.8.9'}).
       to_return(status: 200, body: {})
 
     leagues = client.leagues
@@ -35,7 +39,8 @@ describe Steam::Client do
   end
 
   it 'returns live leagues' do
-    stub_request(:get,  'https://api.steampowered.com/ISteam2Match_570/GetLiveLeagueGames/V001/?key=TEST_API_KEY').
+    stub_request(:get,  'https://api.steampowered.com/ISteam2Match_570/GetLiveLeagueGames/V001/?key=A8229F479840DA66362A59443FF717CF').
+      with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faradayv v0.8.9'}).
       to_return(status: 200, body: fixture(:live_league_games))
 
     live_leagues = client.live_leagues
@@ -44,7 +49,8 @@ describe Steam::Client do
   end
 
   it 'returns nil if there are no live leagues' do
-    stub_request(:get,  'https://api.steampowered.com/ISteam2Match_570/GetLiveLeagueGames/V001/?key=TEST_API_KEY').
+    stub_request(:get,  'https://api.steampowered.com/ISteam2Match_570/GetLiveLeagueGames/V001/?key=A8229F479840DA66362A59443FF717CF').
+      with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faradayv v0.8.9'}).
       to_return(status: 200, body: {})
 
     live_leagues = client.live_leagues
@@ -52,7 +58,8 @@ describe Steam::Client do
   end
 
   it 'returns friends' do
-    stub_request(:get,  'https://api.steampowered.com/ISteamUser/GetFriendList/V001/?key=TEST_API_KEY&steamid=123').
+    stub_request(:get,  'https://api.steampowered.com/ISteamUser/GetFriendList/V001/?key=A8229F479840DA66362A59443FF717CF&steamid=123').
+      with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faradayv v0.8.9'}).
       to_return(status: 200, body: fixture(:friends))
 
     friends = client.friends(123)
@@ -61,7 +68,8 @@ describe Steam::Client do
   end
 
   it 'returns bans' do
-    stub_request(:get,  'https://api.steampowered.com/ISteamUser/GetPlayerBans/V001/?key=TEST_API_KEY&steamids=123').
+    stub_request(:get,  'https://api.steampowered.com/ISteamUser/GetPlayerBans/V001/?key=A8229F479840DA66362A59443FF717CF&steamids=123').
+      with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faradayv v0.8.9'}).
       to_return(status: 200, body: fixture(:bans))
 
     bans = client.bans(123)
@@ -70,7 +78,8 @@ describe Steam::Client do
   end
 
   it 'returns profiles' do
-    stub_request(:get,  'https://api.steampowered.com/ISteamUser/GetPlayerSummaries/V002/?key=TEST_API_KEY&steamids=123').
+    stub_request(:get,  'https://api.steampowered.com/ISteamUser/GetPlayerSummaries/V002/?key=A8229F479840DA66362A59443FF717CF&steamids=123').
+      with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faradayv v0.8.9'}).
       to_return(status: 200, body: fixture(:profiles))
 
     profiles = client.profiles(123)
@@ -79,7 +88,8 @@ describe Steam::Client do
   end
 
   it 'returns one profile' do
-    stub_request(:get,  'https://api.steampowered.com/ISteamUser/GetPlayerSummaries/V002/?key=TEST_API_KEY&steamids=123').
+    stub_request(:get,  'https://api.steampowered.com/ISteamUser/GetPlayerSummaries/V002/?key=A8229F479840DA66362A59443FF717CF&steamids=123').
+      with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faradayv v0.8.9'}).
       to_return(status: 200, body: fixture(:profiles))
 
     profile = client.profile(123)

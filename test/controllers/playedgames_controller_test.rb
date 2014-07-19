@@ -33,17 +33,16 @@ class PlayedgamesControllerTest < ActionController::TestCase
     get :edit, id: @playedgame
     assert_response :success
   end
-
   test "should update playedgame" do
     patch :update, id: @playedgame, playedgame: { game_id: @playedgame.game_id, playedtime: @playedgame.playedtime, player_id: @playedgame.player_id }
     assert_redirected_to playedgame_path(assigns(:playedgame))
   end
 
-  test "should destroy playedgame" do
-    assert_difference('Playedgame.count', -1) do
-      delete :destroy, id: @playedgame
-    end
+    test "should destroy playedgame" do
+      assert_difference('Playedgame.count', -1) do
+        delete :destroy, id: @playedgame
+      end
 
-    assert_redirected_to playedgames_path
-  end
+      assert_redirected_to playedgames_path
+    end
 end

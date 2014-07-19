@@ -11,9 +11,11 @@ module Steam
     end
 
     def request(method, url, options = {})
-      puts url 
-      puts options
+      option_string = options.map{ |a,b| a.to_s << "=" << b.to_s }.join("&")
+      final_url = url << "?" << option_string
       
+      Clipboard.copy(final_url)
+      puts final_url
       response = @faraday.public_send(method) do |request|
         begin 
           request.url(url, options) 

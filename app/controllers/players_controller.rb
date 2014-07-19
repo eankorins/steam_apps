@@ -1,4 +1,6 @@
 class PlayersController < ApplicationController
+
+  require 'will_paginate/array'
   include PlayersHelper
   before_action :set_player, only: [:show, :edit, :update, :destroy]
   
@@ -14,9 +16,8 @@ class PlayersController < ApplicationController
   def show
 
     @player = Player.find(params[:id])
-    @playedgames = @player.playedgames.sort_by{ | x | x.game.name}
-    
-    @games = Game.all
+    sortedgames = @player.playedgames.by_achievement_count.paginate(:page => params[:page], :per_page => 30)
+    @playedgames = sortedgames
   end
 
   # GET /players/new

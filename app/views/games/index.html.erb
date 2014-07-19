@@ -1,5 +1,5 @@
 <h1>Listing games <%= @games.count %></h1>
-
+<%= will_paginate %>
 <table>
   <thead>
     <tr>
@@ -12,22 +12,10 @@
   </thead>
 
   <tbody>
-  <%= will_paginate %>
-    <% @games.each do |game| %>
-      <tr>
-        <td><%= game.name %></td>
-        <td><%= game.cost %></td>
-        <td><%= game.played %></td>
-        <td><%= game.achievements.count %></td>
-        <td><%= link_to 'Show', game %></td>
-        <td><%= link_to 'Edit', edit_game_path(game) %></td>
-        <td><%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  <%= will_paginate %>
+        <%= render @games %>
   </tbody>
 </table>
 
 <br>
-
+<%= will_paginate %>
 <%= link_to 'New Game', new_game_path %>

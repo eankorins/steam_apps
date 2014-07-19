@@ -1,11 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  cost: MyString
-  played: MyString
+ac3:
+	id: 1
+  	name: Assassin's Creed 3
+  	cost: 30.00
 
-two:
-  name: MyString
-  cost: MyString
-  played: MyString
+fc3:
+	id: 2
+  	name: Far Cry 3
+  	cost: 50.00
+cod:
+	id: 3
+	name: Call of Duty
+	cost: 80.00

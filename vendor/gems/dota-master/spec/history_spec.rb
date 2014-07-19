@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Steam::History do
   before do
-    stub_request(:get, 'https://api.steampowered.com/ISteam2Match_570/GetMatchHistory/V001/?key=TEST_API_KEY').
+    stub_request(:get, 'https://api.steampowered.com/ISteam2Match_570/GetMatchHistory/V001/?key=A8229F479840DA66362A59443FF717CF').
       to_return(status: 200, body: fixture(:history))
   end
 

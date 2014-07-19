@@ -10,10 +10,13 @@ gem 'hirb'
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
+gem 'clipboard', '~> 1.0.5'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
+gem 'nifty-generators', :group => :development
 gem 'httparty'
-gem 'paginate'
+gem 'will_paginate'
+gem 'ffi'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 gem 'activerecord-import'
@@ -41,3 +44,5 @@ gem 'whenever', :require => false
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
+
+gem "mocha", group: :test

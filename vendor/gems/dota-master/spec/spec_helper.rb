@@ -4,13 +4,12 @@ require 'webmock/minitest'
 require 'json'
 
 require 'steam'
-
 module SpecHelper
   def client
     @client ||= begin
       client = Steam::Client.new
       client.configure do |config|
-        config.api_key = 'TEST_API_KEY'
+        config.api_key = 'A8229F479840DA66362A59443FF717CF'
       end
 
       client

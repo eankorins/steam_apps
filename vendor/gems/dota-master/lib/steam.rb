@@ -4,7 +4,7 @@ require 'steam/client'
 module Steam
   extend SingleForwardable
 
-  def_delegators :client, :game_scheme, :configure, :owned_games, :apps, :match, :history, :leagues, :live_leagues, :profiles, :bans, :friends
+  def_delegators :client, :game_scheme, :configure, :owned_games, :apps, :match, :history, :leagues, :live_leagues, :profiles, :profile, :bans, :friends
 
   def self.client
     @client ||= Client.new

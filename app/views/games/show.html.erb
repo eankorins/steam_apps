@@ -19,5 +19,10 @@
   <%= @game.played %>
 </p>
 
+	<%= render @achievements %>
+<%= will_paginate @achievements, :param_name => 'achievement_page' %>
+	<%= render @stats %>
+<%= will_paginate @stats, :param_name => 'stat_page' %>
+
 <%= link_to 'Edit', edit_game_path(@game) %> |
 <%= link_to 'Back', games_path %>

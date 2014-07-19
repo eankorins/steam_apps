@@ -1,11 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  player_id: 1
+ac3_furryballs:
+  player_id: 2
   game_id: 1
-  playedtime: 1.5
+  playedtime: 4.0
 
-two:
+fc3_furryballs:
+  player_id: 2
+  game_id: 2
+  playedtime: 1.5
+cod_abstract:
   player_id: 1
-  game_id: 1
+  game_id: 3
   playedtime: 1.5

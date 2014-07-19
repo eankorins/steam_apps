@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  id: MyString
+furryballs:
+  name: Furryballs
+  steamid: "76561197963000940"
+  id: 2
 
-two:
-  name: MyString
-  id: MyString
+abstract:
+  name: Abstract
+  steamid: "76561197963000940"
+  id: 1
