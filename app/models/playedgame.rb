@@ -6,4 +6,5 @@ class Playedgame < ActiveRecord::Base
 
 	scope :by_name, -> { joins(:game).order('games.name') }
 	scope :by_achievement_count, -> { joins(:game).order('games.achievements_count DESC')}
+	scope :by_time_played, -> { order('playedtime DESC')}
 end

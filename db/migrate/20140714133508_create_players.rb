@@ -8,7 +8,7 @@ class CreatePlayers < ActiveRecord::Migration
       t.integer :clan_id
       t.string :country_code
       t.string :state_code
-      t.datetime :created_at
+      t.datetime :profile_created_at
       t.string :access_state
       t.boolean :configured
       t.string :status

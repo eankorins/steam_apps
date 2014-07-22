@@ -14,9 +14,13 @@ class PlayersController < ApplicationController
   # GET /players/1
   # GET /players/1.json
   def show
-
     @player = Player.find(params[:id])
-    sortedgames = @player.playedgames.by_achievement_count.paginate(:page => params[:page], :per_page => 30)
+    puts "#{@player.updated_at}      <    #{10.minutes.ago.utc}"
+    if @player.updated_at < 10.minutes.ago.utc
+      @player.get_profile
+    end
+    @friendships = @player.friendships.paginate(:page => params[:page], :per_page => 30)
+    sortedgames = @player.playedgames.by_time_played.paginate(:page => params[:page], :per_page => 30)
     @playedgames = sortedgames
   end
 
@@ -28,7 +32,6 @@ class PlayersController < ApplicationController
   # GET /players/1/edit
   def edit
   end
-
   # POST /players
   # POST /players.json
   def create

@@ -39,7 +39,7 @@ module Steam
     #
     # @return [Integer]
     def clan_id
-      raw_profile['primaryclanid']
+      raw_profile['primaryclanid'].presence || 0
     end
 
     # ISO 3166 code of where the user is located
@@ -60,7 +60,7 @@ module Steam
     #
     # @return [Time]
     def created_at
-      Time.at(raw_profile['timecreated'])
+      Time.at(raw_profile['timecreated'].presence || 0 ) 
     end
 
     # Describes the access setting of the profile

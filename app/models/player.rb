@@ -3,18 +3,27 @@ class Player < ActiveRecord::Base
 	
 	include PlayersHelper
 
-	before_save :player_profile
+	before_save :get_profile
 	after_create :player_games
 
 	has_many :playedgames, :dependent => :destroy
 	has_many :games, :through => :playedgames
 	has_many :completed_achievements, :dependent => :destroy
 	has_many :achievements, :through => :completed_achievements
-	
+	has_many :friendships
+	has_many :friends, :through => :friendships
+	has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
+	has_many :inverse_friends, :through => :inverse_friendships, :source => :user
 	validates :steamid, presence: true, uniqueness: {case_sensitive:false}
 
 	scope :by_achievement_count, -> { joints(:playedgames).order(PlayedGame.by_achievement_count) }
 
+	def total_time_played
+		played_time = playedgames.sum(:playedtime)
+		played_time_hours = (played_time / 60).round(2)
+		played_time_days = (played_time_hours / 24).round(2)
+		"#{played_time_hours.to_s} hrs (#{played_time_days.to_s} days)"
+	end
 	def player_games
 		owned_games = Steam.owned_games(steamid: self.steamid)
 
@@ -26,10 +35,9 @@ class Player < ActiveRecord::Base
 			rescue
 				"Not Found"
 			end		
-		end
+		end unless owned_games.nil?
 	end
-
-	def player_profile
+	def get_profile
 		profile = Steam.profile(self.steamid)
 
 		if profile 
@@ -39,7 +47,7 @@ class Player < ActiveRecord::Base
 			self.clan_id = profile.clan_id
 			self.country_code = profile.country_code
 			self.state_code = profile.state_code
-			self.created_at = profile.created_at
+			self.profile_created_at = profile.created_at
 			self.access_state = profile.access_state
 			self.configured = profile.configured?
 			self.status = profile.status
@@ -52,6 +60,21 @@ class Player < ActiveRecord::Base
 			self.current_game_id = profile.game_id
 			self.current_game_title = profile.game_title
 			self.current_game_server_ip = profile.game_server_ip
+		end
+	end
+	def get_friends
+		friends = Steam.friends(self.steamid)
+
+		if friends.any?
+			friends.each do |f| 
+				if player = Player.find_by(:steamid => f.steam_id)
+					self.friendships.create(:friend_id => player.id)
+				else
+					p = Player.create(:steamid => f.steam_id) 
+					self.friendships.create(:friend_id => p.id )
+					sleep(1)
+				end		
+			end
 		end
 	end
 end

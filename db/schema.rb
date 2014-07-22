@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140718234257) do
+ActiveRecord::Schema.define(version: 20140722121043) do
 
   create_table "achievements", force: true do |t|
     t.string   "name"
@@ -31,6 +31,13 @@ ActiveRecord::Schema.define(version: 20140718234257) do
   create_table "completed_achievements", force: true do |t|
     t.integer  "user_id"
     t.integer  "achievement_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "friendships", force: true do |t|
+    t.integer  "player_id"
+    t.integer  "friend_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -63,7 +70,7 @@ ActiveRecord::Schema.define(version: 20140718234257) do
     t.integer  "clan_id"
     t.string   "country_code"
     t.string   "state_code"
-    t.datetime "created_at"
+    t.datetime "profile_created_at"
     t.string   "access_state"
     t.boolean  "configured"
     t.string   "status"
@@ -76,6 +83,7 @@ ActiveRecord::Schema.define(version: 20140718234257) do
     t.integer  "current_game_id"
     t.string   "current_game_title"
     t.string   "current_game_server_ip"
+    t.datetime "created_at"
     t.datetime "updated_at"
   end
 

@@ -1,23 +1,57 @@
 <p id="notice"><%= notice %></p>
-
+  
+<div class="row">
+	<p>
+		<h2><a href="<%= @player.profile_url %>"><%= @player.name %></a></h2>
+		<img style="float:right" src="<%= @player.small_avatar %>"/>
+	</p>
+</div>
 <p>
-  <strong>Name:</strong>
-  <%= @player.name %>
-</p>
-
-<p>
-  <strong>SteamID:</strong>
-  <%= @player.steamid %>
+  	<strong>SteamID:</strong>
+  	<%= @player.steamid %>
 </p>
 <p>
 	<strong>Number of games: </strong>
 	<%= @player.games.count %>
 </p>	
 <p>
-  <%= render @playedgames %>
-  <%= will_paginate @playedgames %>
+	<strong>Clan: </strong>
+	<%= @player.clan_id %>
+</p>
+<p>
+	<strong>Country: </strong>
+	<%= @player.country_code %>
+</p>
+<p>
+	<strong>Created at: </strong>
+	<%= @player.created_at %>
+</p>
+<p>
+	<strong>Status: </strong>
+	<%= @player.status %>
+</p>
+<p>
+	<strong>Last Login: </strong>
+	<%= @player.last_login %>
+</p>
+<p>
+	
 </p>
 
+<p>
+	<h2>Games </h2>
+	<h5>Total time played: <%= @player.total_time_played %> </h5>
+    <%= render @playedgames %>
+  	<%= will_paginate @playedgames %>
+</p>
+<p>
+	<h2>Friends</h2>
+	<h5>Total friends: <%= @friendships.count %></h5>
+	<table>
+		<%= render @friendships %>
+	</table>
+	<%= will_paginate @friendships %>
+</p>
 
 <%= link_to 'Edit', edit_player_path(@player) %> |
 <%= link_to 'Back', players_path %>
