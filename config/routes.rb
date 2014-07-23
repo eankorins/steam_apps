@@ -1,9 +1,15 @@
 Rails.application.routes.draw do
+
+
   resources :friendships
 
   resources :playedgames
 
-  resources :players
+  resources :players do
+    member do
+      get :get_friends
+    end
+  end
 
   resources :games
   root 'players#index'

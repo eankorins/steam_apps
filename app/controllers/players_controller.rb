@@ -2,13 +2,13 @@ class PlayersController < ApplicationController
 
   require 'will_paginate/array'
   include PlayersHelper
-  before_action :set_player, only: [:show, :edit, :update, :destroy]
+  before_action :set_player, only: [:show, :edit, :update, :get_friends, :destroy]
   
   
     # GET /players"
   # GET /players.json
   def index
-    @players = Player.all
+    @players = Player.all.sort_by(&:total_time_played).reverse.paginate(:page => params[:page], :per_page => 100)
   end
 
   # GET /players/1
@@ -61,7 +61,11 @@ class PlayersController < ApplicationController
       end
     end
   end
-
+  def get_friends
+    @player = Player.find(params[:id])
+    @player.get_friends
+    redirect_to action: 'show'
+  end
   # DELETE /players/1
   # DELETE /players/1.json
   def destroy

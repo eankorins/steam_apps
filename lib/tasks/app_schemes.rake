@@ -8,6 +8,16 @@ namespace :steam do
       sleep(1)
     end
   end
+  task get_friends: :environment do
+    Player.all.each do |f|
+      f.get_friends
+    end
+  end
+  task update_counters: :environment do
+    Player.all.each do |f|
+      f.playedgames_count = f.playedgames.count
+    end
+  end
 end
 
 

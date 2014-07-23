@@ -6,11 +6,13 @@
       <tr>
       <td><img src="<%= player.small_avatar %>" /></td>
         <td><%= link_to player.name, player %></td>
+        <td><%= player.total_time_played_string %></td>
+        <td><%= player.playedgames.count %> </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
+<%= will_paginate @players %>
 <br>
 
 <%= link_to 'New Player', new_player_path %>

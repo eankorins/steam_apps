@@ -40,12 +40,12 @@
 
 <p>
 	<h2>Games </h2>
-	<h5>Total time played: <%= @player.total_time_played %> </h5>
+	<h5>Total time played: <%= @player.total_time_played_string %> </h5>
     <%= render @playedgames %>
   	<%= will_paginate @playedgames %>
 </p>
 <p>
-	<h2>Friends</h2>
+	<h2>Friends</h2> <%= link_to "Update", action: "get_friends", id: @player %>
 	<h5>Total friends: <%= @friendships.count %></h5>
 	<table>
 		<%= render @friendships %>

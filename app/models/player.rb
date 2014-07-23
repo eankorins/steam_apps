@@ -16,10 +16,14 @@ class Player < ActiveRecord::Base
 	has_many :inverse_friends, :through => :inverse_friendships, :source => :user
 	validates :steamid, presence: true, uniqueness: {case_sensitive:false}
 
-	scope :by_achievement_count, -> { joints(:playedgames).order(PlayedGame.by_achievement_count) }
+	scope :by_achievement_count, -> { joins(:playedgames).order(PlayedGame.by_achievement_count) }
+	scope :by_time_played, -> { order(:total_time_played) }
 
 	def total_time_played
 		played_time = playedgames.sum(:playedtime)
+	end
+	def total_time_played_string
+		played_time = total_time_played
 		played_time_hours = (played_time / 60).round(2)
 		played_time_days = (played_time_hours / 24).round(2)
 		"#{played_time_hours.to_s} hrs (#{played_time_days.to_s} days)"
@@ -68,7 +72,9 @@ class Player < ActiveRecord::Base
 		if friends.any?
 			friends.each do |f| 
 				if player = Player.find_by(:steamid => f.steam_id)
-					self.friendships.create(:friend_id => player.id)
+					unless self.friends.find_by(:steamid => player.steamid)
+						self.friendships.create(:friend_id => player.id)
+					end
 				else
 					p = Player.create(:steamid => f.steam_id) 
 					self.friendships.create(:friend_id => p.id )

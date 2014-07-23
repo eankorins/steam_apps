@@ -5,8 +5,8 @@ class GamesController < ApplicationController
   # GET /games.json
   def index
     #get_apps
-    @games = Game.all.with_stats.paginate(:page => params[:page], :per_page => 30)
-
+    @games = Game.all.sort_by(&:playedgames_count).reverse.paginate(:page => params[:page], :per_page => 30)
+    @players = @games.players
     # @games.each do |g|
     #   get_scheme(g)
     #   sleep(2)
@@ -69,7 +69,7 @@ class GamesController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_game

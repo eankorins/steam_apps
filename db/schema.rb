@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20140722121043) do
     t.datetime "updated_at"
     t.integer  "achievements_count", default: 0
     t.integer  "stats_count",        default: 0
+    t.integer  "playedgames_count",  default: 0
   end
 
   add_index "games", ["appid"], name: "index_games_on_appid", unique: true
@@ -62,6 +63,8 @@ ActiveRecord::Schema.define(version: 20140722121043) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "playedgames", ["player_id"], name: "index_playedgames_on_player_id"
 
   create_table "players", force: true do |t|
     t.string   "name"
@@ -85,6 +88,7 @@ ActiveRecord::Schema.define(version: 20140722121043) do
     t.string   "current_game_server_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "playedgames_count",      default: 0
   end
 
   add_index "players", ["steamid"], name: "index_players_on_steamid", unique: true
