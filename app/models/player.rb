@@ -19,6 +19,7 @@ class Player < ActiveRecord::Base
 	scope :by_achievement_count, -> { joins(:playedgames).order(PlayedGame.by_achievement_count) }
 	scope :by_time_played, -> { order(:total_time_played) }
 
+	
 	def total_time_played
 		played_time = playedgames.sum(:playedtime)
 	end
@@ -41,6 +42,7 @@ class Player < ActiveRecord::Base
 			end		
 		end unless owned_games.nil?
 	end
+
 	def get_profile
 		profile = Steam.profile(self.steamid)
 
@@ -82,5 +84,8 @@ class Player < ActiveRecord::Base
 				end		
 			end
 		end
+	end
+	def has_friends?
+		self.friends.any?
 	end
 end

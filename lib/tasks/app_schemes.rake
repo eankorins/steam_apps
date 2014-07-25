@@ -10,7 +10,9 @@ namespace :steam do
   end
   task get_friends: :environment do
     Player.all.each do |f|
-      f.get_friends
+      unless f.has_friends?
+       f.get_friends rescue puts "Error"
+     end
     end
   end
   task update_counters: :environment do
