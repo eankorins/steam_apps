@@ -1,7 +1,6 @@
 require 'steam/basic_player'
 require 'steam/basic_match'
 require 'steam/utils/inspectable'
-
 module Steam
   class History
     include Utils::Inspectable

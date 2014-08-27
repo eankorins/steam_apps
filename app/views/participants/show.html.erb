@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Account:</strong>
+  <%= @participant.account_id %>
+</p>
+
+<p>
+  <strong>Player slot:</strong>
+  <%= @participant.player_slot %>
+</p>
+
+<p>
+  <strong>Hero:</strong>
+  <%= @participant.hero_id %>
+</p>
+
+<p>
+  <strong>Match:</strong>
+  <%= @participant.match_id %>
+</p>
+
+<%= link_to 'Edit', edit_participant_path(@participant) %> |
+<%= link_to 'Back', participants_path %>

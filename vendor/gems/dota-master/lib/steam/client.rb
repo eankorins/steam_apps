@@ -42,10 +42,21 @@ module Steam
     #
     # @return [Steam::History] match object
     def history(options = {})
-      response = run_request('GetMatchHistory', options)['result']
-      History.new(response) if response && response['result']
+      response = run_request('GetMatchHistory', options)
+  	  History.new(response['result']) if response && response['result']
     end
 
+    # The list of matches played in sequence
+    #
+    # @return [Steam::History] match object
+    def history_sequence(options = {})
+      response = run_request('GetMatchHistoryBySequenceNum', options)
+      if matches = response['result']['matches']
+        matches.map do |match|
+          Match.new(match)
+        end
+      end
+    end
     # All leagues list
     #
     # @return [Steam::League] league object
@@ -112,7 +123,7 @@ module Steam
     def friends(id = '1')
       response = run_request('GetFriendList', { steamid: id }, 'ISteamUser')
 
-      if response && (friends = response['friendslist']['friends'])
+      if response['friendslist'] && (friends = response['friendslist']['friends'])
         friends.map { |friend| Friend.new(friend) }
       end
     end

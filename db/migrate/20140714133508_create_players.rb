@@ -1,9 +1,8 @@
 class CreatePlayers < ActiveRecord::Migration
   def change
-    create_table :players do |t|
-
+    create_table :players, id: false, force: true do |t|
+      t.string :steam_id, null: false
       t.string :name
-      t.string :steamid
       t.string :real_name
       t.integer :clan_id
       t.string :country_code
@@ -24,6 +23,8 @@ class CreatePlayers < ActiveRecord::Migration
 
       t.timestamps
     end
+    
+    add_index :players, ["steam_id"], name: "index_players_on_steam_id", unique: true, using: :btree
 
   end
 end

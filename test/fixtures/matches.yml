@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  match_id: 1
+  match_seq_num: 1
+  start_time: 2014-08-14 14:51:07
+  lobby_type: 1
+
+two:
+  match_id: 1
+  match_seq_num: 1
+  start_time: 2014-08-14 14:51:07
+  lobby_type: 1

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Match:</strong>
+  <%= @match.match_id %>
+</p>
+
+<p>
+  <strong>Match seq num:</strong>
+  <%= @match.match_seq_num %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @match.start_time %>
+</p>
+
+<p>
+  <strong>Lobby type:</strong>
+  <%= @match.lobby_type %>
+</p>
+
+<%= link_to 'Edit', edit_match_path(@match) %> |
+<%= link_to 'Back', matches_path %>

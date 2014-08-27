@@ -8,7 +8,7 @@ class PlayersController < ApplicationController
     # GET /players"
   # GET /players.json
   def index
-    @players = Player.all.sort_by(&:total_time_played).reverse.paginate(:page => params[:page], :per_page => 100)
+    @players = Player.all.sort_by(&:total_time).reverse.paginate(:page => params[:page], :per_page => 100)
   end
 
   # GET /players/1

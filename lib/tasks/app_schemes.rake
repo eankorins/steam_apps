@@ -10,12 +10,19 @@ namespace :steam do
   end
   task get_friends: :environment do
     Player.all.each do |f|
-      f.get_friends
+      if f.friends.blank?
+        f.get_friends
+      end
     end
   end
   task update_counters: :environment do
     Player.all.each do |f|
       f.playedgames_count = f.playedgames.count
+    end
+  end
+  task update_time_played: :environment do
+    Player.all.each do |f|
+      f.update_time_played
     end
   end
 end

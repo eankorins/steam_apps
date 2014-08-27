@@ -33,7 +33,9 @@ module Steam
     def start
       Time.at(raw_match['start_time'])
     end
-
+    def start_unix
+      raw_match['start_time']
+    end
     # The type of lobby
     #
     # @return [String]

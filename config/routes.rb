@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
 
+  resources :participants
+
+  resources :matches
+
   resources :friendships
 
   resources :playedgames

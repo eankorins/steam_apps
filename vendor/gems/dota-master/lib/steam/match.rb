@@ -113,6 +113,7 @@ module Steam
     end
 
     class Player < Steam::BasicPlayer
+
       # The number of kills the player got
       #
       # @return [Integer]
@@ -138,7 +139,7 @@ module Steam
       #
       # @return [Array] array of kills, deaths, assists
       def kda
-        [kills, deaths, assists]
+        [kills, deaths, assists].join("/")
       end
 
       # Leaver status
@@ -231,28 +232,28 @@ module Steam
       #
       # @return [Array<String>] an array of item names
       def items
-        (0..5).map { |i| Constants::Items[raw_player["item_#{i}"]] }
+        (0..5).map { |i| Constants::Items[raw_player["item_#{i}"]] }.join(' ') rescue ''
       end
 
       # List of items on secondary unit (e.g. Syllabear's bear)
       #
       # @return [Array<String>] an array of item names
       def additional_unit_items
-        (0..5).map { |i| Constants::Items[raw_player['additional_units'][0]["item_#{i}"]] }
+        (0..5).map { |i| Constants::Items[raw_player['additional_units'][0]["item_#{i}"]] }.join(' ') rescue ''
       end
 
       # Names of secondary units
       #
       # @return [Array<String>] an array of secondary unit names
       def additional_unit_names
-        raw_player['additional_units'][0]['unitname']
+        raw_player['additional_units'][0]['unitname'].join(' ') rescue ''
       end
 
       # List of ability upgrades, their timings, and level taken at
       #
       # @return [Array<Hash>] an array of ability upgrades
       def upgrades
-        (0..raw_player['ability_upgrades'].length).map { |i| raw_player['ability_upgrades'][i] }
+        (0..raw_player['ability_upgrades'].length).map { |i| raw_player['ability_upgrades'][i] }.join(' ') rescue ''
       end
     end
   end

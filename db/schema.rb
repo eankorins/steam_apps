@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140722121043) do
+ActiveRecord::Schema.define(version: 20140824140142) do
 
   create_table "achievements", force: true do |t|
     t.string   "name"
@@ -56,6 +56,61 @@ ActiveRecord::Schema.define(version: 20140722121043) do
 
   add_index "games", ["appid"], name: "index_games_on_appid", unique: true
 
+  create_table "matches", force: true do |t|
+    t.integer  "match_id"
+    t.integer  "match_seq_num"
+    t.datetime "start_time"
+    t.string   "lobby_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "winner"
+    t.integer  "first_blood"
+    t.integer  "season"
+    t.integer  "duration"
+    t.integer  "human_players"
+    t.integer  "positive_votes"
+    t.integer  "negative_votes"
+    t.integer  "cluster"
+    t.string   "mode"
+    t.integer  "league_id"
+    t.integer  "radiant_tower_status"
+    t.integer  "dire_tower_status"
+    t.integer  "radiant_barracks_status"
+    t.integer  "dire_barracks_status"
+  end
+
+  add_index "matches", ["match_id"], name: "index_matches_on_match_id"
+
+  create_table "participants", force: true do |t|
+    t.string   "player_id"
+    t.integer  "player_slot"
+    t.integer  "hero_id"
+    t.integer  "match_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "kills"
+    t.integer  "deaths"
+    t.integer  "assists"
+    t.string   "kda"
+    t.string   "leaver_status"
+    t.integer  "gold"
+    t.integer  "last_hits"
+    t.integer  "denies"
+    t.integer  "gold_spent"
+    t.integer  "hero_damage"
+    t.integer  "tower_damage"
+    t.integer  "hero_healing"
+    t.integer  "level"
+    t.integer  "xpm"
+    t.integer  "gpm"
+    t.string   "items"
+    t.string   "additional_unit_items"
+    t.string   "additional_unit_names"
+    t.string   "upgrades"
+  end
+
+  add_index "participants", ["player_id"], name: "index_participants_on_player_id"
+
   create_table "playedgames", force: true do |t|
     t.integer  "player_id"
     t.integer  "game_id"
@@ -66,9 +121,9 @@ ActiveRecord::Schema.define(version: 20140722121043) do
 
   add_index "playedgames", ["player_id"], name: "index_playedgames_on_player_id"
 
-  create_table "players", force: true do |t|
+  create_table "players", id: false, force: true do |t|
+    t.string   "steam_id",                           null: false
     t.string   "name"
-    t.string   "steamid"
     t.string   "real_name"
     t.integer  "clan_id"
     t.string   "country_code"
@@ -89,9 +144,10 @@ ActiveRecord::Schema.define(version: 20140722121043) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "playedgames_count",      default: 0
+    t.integer  "total_time",             default: 0
   end
 
-  add_index "players", ["steamid"], name: "index_players_on_steamid", unique: true
+  add_index "players", ["steam_id"], name: "index_players_on_steam_id", unique: true
 
   create_table "stats", force: true do |t|
     t.integer  "game_id"
