@@ -5,7 +5,7 @@ class GamesController < ApplicationController
   # GET /games.json
   def index
     #get_apps
-    @games = Game.all.paginate(:page => params[:page], :per_page => 30)
+    @games = Game.all.sort_by(&:playedgames_count).reverse.paginate(:page => params[:page], :per_page => 30)
     # @games.each do |g|
     #   get_scheme(g)
     #   sleep(2)

@@ -13,6 +13,9 @@ namespace :steam do
       if f.friends.blank?
         f.get_friends
       end
+      unless f.has_friends?
+       f.get_friends rescue puts "Error"
+     end
     end
   end
   task update_counters: :environment do
