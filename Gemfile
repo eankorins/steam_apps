@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
+gem 'sidekiq'
 # Use sqlite3 as the database for Active Record
 group :development, :test do
   gem 'sqlite3', '1.3.8'
@@ -21,13 +22,13 @@ group :test do
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
 
   # Uncomment this line on OS X.
-  gem 'growl', '1.0.3'
+  # gem 'growl', '1.0.3'
 
   # Uncomment these lines on Linux.
   # gem 'libnotify', '0.8.0'
-  gem 'rb-notifu', '0.0.4'
-  gem 'win32console', '1.3.2'
-  gem 'wdm', '0.1.0'
+  # gem 'rb-notifu', '0.0.4'
+  # gem 'win32console', '1.3.2'
+  # gem 'wdm', '0.1.0'
 end
 group :production do
   gem 'pg', '0.15.1'

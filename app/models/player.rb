@@ -4,7 +4,7 @@ class Player < ActiveRecord::Base
 	include PlayersHelper
 	include ApplicationHelper
 
-	after_create :player_games
+	after_create :get_profile
 	
 	has_many :playedgames, :dependent => :destroy
 	has_many :games, :through => :playedgames
@@ -14,17 +14,17 @@ class Player < ActiveRecord::Base
 	has_many :friends, :through => :friendships
 	has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
 	has_many :inverse_friends, :through => :inverse_friendships, :source => :user
-	has_many :participations, :class_name => "Participants"
-	has_many :matches, :through => :participations, :source => :matches
+	has_many :participations, :class_name => "Participant"
+	has_many :matches, :through => :participations, :source => :match
 	validates :steam_id, presence: true, uniqueness: {case_sensitive:false}
 
 	scope :by_achievement_count, -> { joins(:playedgames).order(PlayedGame.by_achievement_count) }
 	scope :by_time_played, -> { order(:total_time_played) }
 
-<<<<<<< HEAD
 	def account_id 
 		self.steam_id.to_i - 76561197960265728
 	end
+
 	def to_steam_id(accid)
 		accid + 76561197960265728
 	end
@@ -32,26 +32,35 @@ class Player < ActiveRecord::Base
 	def total_time_played
 		played_time = playedgames.sum(:playedtime)
 	end
+
 	def total_time_played_string
 		played_time = total_time
 		played_time_hours = (played_time / 60).round(2)
 		played_time_days = (played_time_hours / 24).round(2)
 		"#{played_time_hours.to_s} hrs (#{played_time_days.to_s} days)"
 	end
+
+	def game_ids
+		games.map(&:game_id)
+	end
+
 	def player_games
-		get_profile
-		owned_games = Steam.owned_games(steam_id: self.steam_id)
+		owned_games = Steam.owned_games(steamid: self.steam_id)
 
 		owned_games.each  do | game |
 			begin 
 				puts game.id
 				g = Game.find_by(appid: game.id)
-				self.playedgames.create(game_id: g.id, playedtime: game.playtime_forever)	
+				self.playedgames.create(game_id: g.id, playedtime: game.playtime_forever) unless game_ids.include?(g.id)
 				update_time_played
 			rescue
 				"Not Found"
 			end		
 		end unless owned_games.nil?
+	end
+
+	def wins 
+		participations.select{ |x| x.side.downcase == x.match.winner }.count
 	end
 
 	def get_profile
@@ -78,6 +87,7 @@ class Player < ActiveRecord::Base
 			self.current_game_title = profile.game_title
 			self.current_game_server_ip = profile.game_server_ip
 		end
+		player_games
 	end
 	def get_friends
 		friends = Steam.friends(self.steam_id)
@@ -96,29 +106,12 @@ class Player < ActiveRecord::Base
 			end
 		end
 	end
+
 	def update_time_played
 		self.total_time = playedgames.sum(:playedtime)
 		save
 	end
-	def get_dota_matches
-		all_matches = []
-		min_id = 0
-		min_id = self.matches.map(&:id).min unless self.matches.blank? rescue 0
 
-		begin
-			history = Steam.history({ account_id: account_id, start_at_match_id: min_id - 1 })
-			puts history.matches.map(&:id)
-			all_matches << history.matches 
-			puts history.remaining_count.to_s << " remaining"
-			min_id = history.matches.map(&:id).min
-		end until history.remaining_count == 0
-
-		history.matches.each do |m|
-			if Match.find_by(:id => m.id).blank?
-				Match.create(to_match(Steam.match(m.id)))
-				sleep(1)
-			end
-		end
 	def has_friends?
 		self.friends.any?
 	end

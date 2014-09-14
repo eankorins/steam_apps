@@ -6,7 +6,7 @@ namespace :db do
 		apps = get_apps
 	end
 	task get_player: :environment do
-		user = Player.create(steam_id: 76561197963000940, name: "Furryballs")
+		user = Player.create(steam_id: 76561198101298200)
 	end
 
 	task get_all_games: :environment do

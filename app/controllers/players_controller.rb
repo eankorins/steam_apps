@@ -2,6 +2,7 @@ class PlayersController < ApplicationController
 
   require 'will_paginate/array'
   include PlayersHelper
+
   before_action :set_player, only: [:show, :edit, :update, :get_friends, :destroy]
   
   
@@ -16,12 +17,13 @@ class PlayersController < ApplicationController
   def show
     @player = Player.find(params[:id])
     puts "#{@player.updated_at}      <    #{10.minutes.ago.utc}"
-    if @player.updated_at < 10.minutes.ago.utc
+    if @player.updated_at < 24.hours.ago.utc
       @player.get_profile
     end
     @friendships = @player.friendships.paginate(:page => params[:page], :per_page => 30)
     sortedgames = @player.playedgames.by_time_played.paginate(:page => params[:page], :per_page => 30)
     @playedgames = sortedgames
+    @match_participations = @player.participations.sort_by{ |x|x.match.start_time }.reverse.paginate(:page => params[:part_page], :per_page => 30)
   end
 
   # GET /players/new
@@ -66,6 +68,10 @@ class PlayersController < ApplicationController
     @player.get_friends
     redirect_to action: 'show'
   end
+  def get_matches
+    MatchWorker.perform_async(params[:id])
+    redirect_to action: 'show'
+  end
   # DELETE /players/1
   # DELETE /players/1.json
   def destroy
@@ -84,6 +90,6 @@ class PlayersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def player_params
-      params.require(:player).permit(:name, :steamid)
+      params.require(:player).permit(:steamid)
     end
 end

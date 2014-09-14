@@ -1,57 +1,70 @@
 <p id="notice"><%= notice %></p>
-  
 <div class="row">
-	<p>
-		<h2><a href="<%= @player.profile_url %>"><%= @player.name %></a></h2>
-		<img style="float:right" src="<%= @player.small_avatar %>"/>
-	</p>
+	<div class="span4">
+		<p>
+			<h2>
+				<a href="<%= @player.profile_url %>"><%= @player.name %></a>
+				<img src="<%= @player.small_avatar %>"/>
+			</h2>
+			
+		</p>
+<!-- 		<p>
+	  		<strong>SteamID:</strong>
+		  	<%= @player.steam_id %>
+		</p> -->
+		<p>
+			<strong>Number of games: </strong>
+			<%= @player.games.count %>
+		</p>	
+<!-- 		<p>
+			<strong>Clan: </strong>
+			<%= @player.clan_id %>
+		</p> -->
+		<p>
+			<strong>Country: </strong>
+			<%= @player.country_code %>
+		</p>
+		<p>
+			<strong>Created at: </strong>
+			<%= @player.created_at %>
+		</p>
+		<p>
+			<strong>Status: </strong>
+			<%= @player.status %>
+		</p>
+		<p>
+			<strong>Last Login: </strong>
+			<%= @player.last_login %>
+		</p>
+	</div>
 </div>
-<p>
-  	<strong>SteamID:</strong>
-  	<%= @player.steamid %>
-</p>
-<p>
-	<strong>Number of games: </strong>
-	<%= @player.games.count %>
-</p>	
-<p>
-	<strong>Clan: </strong>
-	<%= @player.clan_id %>
-</p>
-<p>
-	<strong>Country: </strong>
-	<%= @player.country_code %>
-</p>
-<p>
-	<strong>Created at: </strong>
-	<%= @player.created_at %>
-</p>
-<p>
-	<strong>Status: </strong>
-	<%= @player.status %>
-</p>
-<p>
-	<strong>Last Login: </strong>
-	<%= @player.last_login %>
-</p>
-<p>
-	
-</p>
+<div class="row">
+	<div class= "span4">
 
-<p>
-	<h2>Games </h2>
-	<h5>Total time played: <%= @player.total_time_played_string %> </h5>
-    <%= render @playedgames %>
-  	<%= will_paginate @playedgames %>
-</p>
-<p>
-	<h2>Friends</h2> <%= link_to "Update", action: "get_friends", id: @player %>
-	<h5>Total friends: <%= @friendships.count %></h5>
-	<table>
-		<%= render @friendships %>
-	</table>
-	<%= will_paginate @friendships %>
-</p>
+		<p>
+			<h2>Games </h2>
+			<h5>Total time played: <%= @player.total_time_played_string %> </h5>
+		    <%= render @playedgames %>
+		  	<%= will_paginate @playedgames %>
+		</p>
+		<p>
+			<h2>Friends</h2> <%= link_to "Update", action: "get_friends", id: @player %>
+			<h5>Total friends: <%= @friendships.count %></h5>
+			<table>
+				<%= render @friendships %>
+			</table>
+			<%= will_paginate @friendships %>
+		</p>
+	</div>
 
+	<div class="span4">
+		<h2>Dota matches (<%= @player.wins %>) </h2>
+		<%= link_to "Update", action: "get_matches", id: @player %>
+		<table>
+		<%= render @match_participations %>
+		</table>
+		<%= will_paginate @match_participations, :param_name => 'part_page' %>
+	</div>
+</div>
 <%= link_to 'Edit', edit_player_path(@player) %> |
 <%= link_to 'Back', players_path %>

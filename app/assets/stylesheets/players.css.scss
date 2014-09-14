@@ -3,3 +3,18 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "bootstrap";
 
+p {
+	text-align: right;
+	strong{
+		float:left;
+	}
+}
+img{
+	float:right;
+}
+.winner{
+	color: green;
+}
+.loser{
+	color: red;
+}

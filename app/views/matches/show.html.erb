@@ -1,24 +1,95 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Match:</strong>
-  <%= @match.match_id %>
-</p>
-
-<p>
-  <strong>Match seq num:</strong>
-  <%= @match.match_seq_num %>
-</p>
-
-<p>
-  <strong>Start time:</strong>
-  <%= @match.start_time %>
-</p>
-
-<p>
-  <strong>Lobby type:</strong>
-  <%= @match.lobby_type %>
-</p>
-
+<div class="row">
+	<div class="span4">
+	    <p>
+	    <strong> Match_id</strong>
+	    	<%= @match.match_id %>
+	    </p>
+	    <p>
+	    <strong> Match_seq_num</strong>
+	    	<%= @match.match_seq_num %>
+	    </p>
+	    <p>
+	    <strong> Start_time</strong>
+	    	<%= @match.start_time %>
+	    </p>
+	    <p>
+	    <strong> Lobby_type</strong>
+	    	<%= @match.lobby_type %>
+	    </p>
+	    <p>
+	    <strong> Created_at</strong>
+	    	<%= @match.created_at %>
+	    </p>
+	    <p>
+	    <strong> Updated_at</strong>
+	    	<%= @match.updated_at %>
+	    </p>
+	    <p>
+	    <strong> Winner</strong>
+	    	<%= @match.winner %>
+	    </p>
+	    <p>
+	    <strong> First_blood</strong>
+	    	<%= @match.first_blood %>
+	    </p>
+	    <p>
+	    <strong> Season</strong>
+	    	<%= @match.season %>
+	    </p>
+	    <p>
+	    <strong> Duration</strong>
+	    	<%= @match.duration %>
+	    </p>
+	    <p>
+	    <strong> Human_players</strong>
+	    	<%= @match.human_players %>
+	    </p>
+	    <p>
+	    <strong> Positive_votes</strong>
+	    	<%= @match.positive_votes %>
+	    </p>
+	    <p>
+	    <strong> Negative_votes</strong>
+	    	<%= @match.negative_votes %>
+	    </p>
+	    <p>
+	    <strong> Cluster</strong>
+	    	<%= @match.cluster %>
+	    </p>
+	    <p>
+	    <strong> Mode</strong>
+	    	<%= @match.mode %>
+	    </p>
+	    <p>
+	    <strong> League_id</strong>
+	    	<%= @match.league_id %>
+	    </p>
+	    <p>
+	    <strong> Radiant_tower_status</strong>
+	    	<%= @match.radiant_tower_status %>
+	    </p>
+	    <p>
+	    <strong> Dire_tower_status</strong>
+	    	<%= @match.dire_tower_status %>
+	    </p>
+	    <p>
+	    <strong> Radiant_barracks_status</strong>
+	    	<%= @match.radiant_barracks_status %>
+	    </p>
+	    <p>
+	    <strong> Dire_barracks_status</strong>
+	    	<%= @match.dire_barracks_status %>
+	    </p>
+    </div>
+	<div class="span4">
+		<% @match.participants.each do |part| %>
+			<div class="row">
+				<div class="span2">
+					<%= part.player.name rescue 0 %> <%= part.player_slot %>
+				</div>
+			</div>
+		<%end%>
+	</div>
+</div>
 <%= link_to 'Edit', edit_match_path(@match) %> |
 <%= link_to 'Back', matches_path %>

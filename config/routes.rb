@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :players do
     member do
       get :get_friends
+      get :get_matches
     end
   end
 

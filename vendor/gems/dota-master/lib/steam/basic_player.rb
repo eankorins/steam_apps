@@ -17,7 +17,12 @@ module Steam
     #
     # @return [Integer]
     def id
-      raw_player['account_id']
+      i = raw_player['account_id']
+      if i.nil?
+        0
+      else
+        i
+      end
     end
 
     # Player's slot. If the left-most bit is set, the player was on dire
