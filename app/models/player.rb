@@ -4,7 +4,7 @@ class Player < ActiveRecord::Base
 	include PlayersHelper
 	include ApplicationHelper
 
-	after_create :get_profile
+	before_save :get_profile
 	
 	has_many :playedgames, :dependent => :destroy
 	has_many :games, :through => :playedgames
@@ -89,6 +89,7 @@ class Player < ActiveRecord::Base
 			self.current_game_title = profile.game_title
 			self.current_game_server_ip = profile.game_server_ip
 		end
+		self.save
 		player_games
 	end
 	def get_friends
