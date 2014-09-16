@@ -1,2 +1,2 @@
-web: bundle exec unicorn ./config/sidekiq.rb
+web: bundle exec sidekiq ./config/sidekiq.rb
 worker: bundle exec sidekiq
