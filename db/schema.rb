@@ -125,7 +125,7 @@ ActiveRecord::Schema.define(version: 20140824140142) do
     t.string   "steam_id",                           null: false
     t.string   "name"
     t.string   "real_name"
-    t.integer  "clan_id"
+    t.string   "clan_id"
     t.string   "country_code"
     t.string   "state_code"
     t.datetime "profile_created_at"
