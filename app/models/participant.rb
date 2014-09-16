@@ -1,4 +1,4 @@
-require 'Steam'
+require 'steam'
 
 class Participant < ActiveRecord::Base
 	belongs_to :match
