@@ -4,7 +4,7 @@ class MatchWorker
 	include ApplicationHelper
 	def perform(id)
 		player = Player.find(id)
-		puts "#{player}"
+		puts "Running"
 		all_matches = []
 		min_id = 1
 		begin
@@ -20,5 +20,6 @@ class MatchWorker
 				sleep(1)
 			end
 		end
+		puts "Done"
 	end
 end
