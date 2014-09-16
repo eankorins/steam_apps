@@ -1,27 +1,14 @@
-require 'sidekiq'
-require 'autoscaler/sidekiq'
-require 'autoscaler/heroku_scaler'
-
-heroku = nil
-if ENV['HEROKU_APP']
-  heroku = Autoscaler::HerokuScaler.new
-end
-
-Sidekiq.configure_client do |config|
-  if heroku
-    config.client_middleware do |chain|
-      chain.add Autoscaler::Sidekiq::Client, 'default' => heroku
-    end
-  end
-end
+require 'sidekiq/web'
 
 Sidekiq.configure_server do |config|
-  config.server_middleware do |chain|
-    if heroku
-      p "[Sidekiq] Running on Heroku, autoscaler is used"
-      chain.add(Autoscaler::Sidekiq::Server, heroku, 60) # 60 seconds timeout
-    else
-      p "[Sidekiq] Running locally, so autoscaler isn't used"
-    end
-  end
+ActiveRecord::Base.configurations[Rails.env.to_s]['pool'] = 30
+end
+
+if Rails.env.production?
+ Sidekiq.configure_server do |config|
+ config.redis = { url: ENV["REDISTOGO_URL"]}
+end
+Sidekiq.configure_client do |config|
+ config.redis = { url: ENV["REDISTOGO_URL"]}
+end
 end
