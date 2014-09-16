@@ -1,0 +1,9 @@
+/* line 5, d:/Projects/steam_apps/app/assets/stylesheets/participants.css.scss */
+.winner {
+  color: green;
+}
+
+/* line 8, d:/Projects/steam_apps/app/assets/stylesheets/participants.css.scss */
+.loser {
+  color: red;
+}
