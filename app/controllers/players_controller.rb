@@ -37,7 +37,7 @@ class PlayersController < ApplicationController
   # POST /players.json
   def create
     id = player_params[:account_id].to_i - 76561197960265728
-    @player = Player.new(:account_id => id)
+    @player = Player.new(:account_id => id.to_s)
 
     respond_to do |format|
       if @player.save
