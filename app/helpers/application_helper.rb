@@ -26,7 +26,7 @@ module ApplicationHelper
 
 	def to_player(player)
 		{
-			player_id: player.id + 76561197960265728,
+			player_id: player.id,
 			player_slot: player.slot,
 			hero_id: player.hero_id, 
 			kills: player.kills,

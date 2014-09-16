@@ -102,7 +102,7 @@ class Player < ActiveRecord::Base
 		unless friends.nil?
 			friends.each do |f| 
 				if player = Player.find_by(:account_id => f.steam_id)
-					unless self.friends.find_by(:steam_id => player.account_id)
+					unless self.friends.find_by(:account_id => player.account_id)
 						self.friendships.create(:friend_id => player.id)
 					end
 				else
