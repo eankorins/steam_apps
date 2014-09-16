@@ -45,18 +45,20 @@ class Player < ActiveRecord::Base
 	end
 
 	def player_games
-		owned_games = Steam.owned_games(steamid: self.steam_id)
+		if Game.any? 
+			owned_games = Steam.owned_games(steamid: self.steam_id)
 
-		owned_games.each  do | game |
-			begin 
-				puts game.id
-				g = Game.find_by(appid: game.id)
-				self.playedgames.create(game_id: g.id, playedtime: game.playtime_forever) unless game_ids.include?(g.id)
-				update_time_played
-			rescue
-				"Not Found"
-			end		
-		end unless owned_games.nil?
+			owned_games.each  do | game |
+				begin 
+					puts game.id
+					g = Game.find_by(appid: game.id)
+					self.playedgames.create(game_id: g.id, playedtime: game.playtime_forever) unless game_ids.include?(g.id)
+					update_time_played
+				rescue
+					"Not Found"
+				end		
+			end unless owned_games.nil?
+		end
 	end
 
 	def wins 
