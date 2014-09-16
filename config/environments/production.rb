@@ -16,15 +16,16 @@ Rails.application.configure do
   Steam.configure do |config|
     config.api_key = 'A8229F479840DA66362A59443FF717CF'
   end
+  ENV["REDISTOGO_URL"] = 'redis://redistogo:11753612c96ed6a7442c8e4aa2e8c232@angelfish.redistogo.com:9159'
   Sidekiq.configure_server do |config|
-  config.redis = { url: ENV["REDISTOGO_URL"], namespace: 'sidekiq' }
-end
-
-unless Rails.env.production?
-  Sidekiq.configure_client do |config|
-    config.redis = { url: ENV["REDISTOGO_URL"], namespace: 'sidekiq'  }
+    config.redis = { url: ENV["REDISTOGO_URL"], namespace: 'sidekiq' }
   end
-end
+
+  unless Rails.env.production?
+    Sidekiq.configure_client do |config|
+      config.redis = { url: ENV["REDISTOGO_URL"], namespace: 'sidekiq'  }
+    end
+  end
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
   # Add `rack-cache` to your Gemfile before enabling this.
   # For large-scale production use, consider using a caching reverse proxy like nginx, varnish or squid.
