@@ -21,4 +21,4 @@ test:
 
 production:
   adapter: postgresql
-  database: db/production.sqlite3
+  database: daccj8bc8fbipo
