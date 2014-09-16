@@ -70,7 +70,6 @@ class Player < ActiveRecord::Base
 
 		if profile 
 			self.name = profile.person_name
-			self.steam_id = profile.id
 			self.real_name = profile.real_name
 			self.clan_id = profile.clan_id
 			self.country_code = profile.country_code
