@@ -35,6 +35,7 @@ group :production do
   gem 'rails_12factor', '0.0.2'
   gem 'unicorn'
   gem 'redis'
+  gem 'autoscaler'
   gem 'sinatra'
 end
 gem 'hirb'
