@@ -1,11 +1,11 @@
 class Player < ActiveRecord::Base
 	self.per_page = 30
-	self.primary_key = 'steam_id'
+	self.primary_key = 'account_id'
 	include PlayersHelper
 	include ApplicationHelper
 
 	after_create :get_profile
-	
+	before_create :to_acc_id
 	has_many :playedgames, :dependent => :destroy
 	has_many :games, :through => :playedgames
 	has_many :completed_achievements, :dependent => :destroy
@@ -16,19 +16,24 @@ class Player < ActiveRecord::Base
 	has_many :inverse_friends, :through => :inverse_friendships, :source => :user
 	has_many :participations, :class_name => "Participant"
 	has_many :matches, :through => :participations, :source => :match
-	validates :steam_id, presence: true, uniqueness: {case_sensitive:false}
+	validates :account_id, presence: true, uniqueness: {case_sensitive:false}
 
 	scope :by_achievement_count, -> { joins(:playedgames).order(PlayedGame.by_achievement_count) }
 	scope :by_time_played, -> { order(:total_time_played) }
 
-	def account_id 
-		self.steam_id.to_i - 76561197960265728
+	def acc_id 
+		to_account_id(self.account_id)
 	end
 
-	def to_steam_id(accid)
-		accid + 76561197960265728
+	def steam_id
+		to_steam_id self.account_id
 	end
 	
+	def to_acc_id 
+		self.account_id = acc_id
+		puts acc_id
+	end
+
 	def total_time_played
 		played_time = playedgames.sum(:playedtime)
 	end
@@ -96,12 +101,12 @@ class Player < ActiveRecord::Base
 
 		unless friends.nil?
 			friends.each do |f| 
-				if player = Player.find_by(:steam_id => f.steam_id)
-					unless self.friends.find_by(:steam_id => player.steam_id)
+				if player = Player.find_by(:account_id => f.steam_id)
+					unless self.friends.find_by(:steam_id => player.account_id)
 						self.friendships.create(:friend_id => player.id)
 					end
 				else
-					p = Player.create(:steam_id => f.steam_id) 
+					p = Player.create(:account_id => f.steam_id) 
 					self.friendships.create(:friend_id => p.id )
 					sleep(1)
 				end		

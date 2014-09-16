@@ -50,4 +50,13 @@ module ApplicationHelper
 			upgrades: player.upgrades
 		}
 	end
+
+	def to_steam_id(id)
+		(id.to_i + 76561197960265728)
+	end
+
+	def to_account_id(id)
+
+		id.to_i
+	end
 end

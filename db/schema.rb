@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140916125503) do
+ActiveRecord::Schema.define(version: 20140916154930) do
 
   create_table "achievements", force: true do |t|
     t.string   "name"
@@ -122,7 +122,7 @@ ActiveRecord::Schema.define(version: 20140916125503) do
   add_index "playedgames", ["player_id"], name: "index_playedgames_on_player_id"
 
   create_table "players", id: false, force: true do |t|
-    t.string   "steam_id",                           null: false
+    t.string   "account_id",                         null: false
     t.string   "name"
     t.string   "real_name"
     t.string   "clan_id"
@@ -147,7 +147,7 @@ ActiveRecord::Schema.define(version: 20140916125503) do
     t.integer  "total_time",             default: 0
   end
 
-  add_index "players", ["steam_id"], name: "index_players_on_steam_id", unique: true
+  add_index "players", ["account_id"], name: "index_players_on_account_id", unique: true
 
   create_table "stats", force: true do |t|
     t.integer  "game_id"

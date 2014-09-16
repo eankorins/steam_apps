@@ -15,7 +15,6 @@ class PlayersController < ApplicationController
   # GET /players/1
   # GET /players/1.json
   def show
-    @player = Player.find(params[:id].to_s)
     puts "#{@player.updated_at}      <    #{10.minutes.ago.utc}"
     if @player.updated_at < 24.hours.ago.utc
       @player.get_profile
@@ -64,7 +63,6 @@ class PlayersController < ApplicationController
     end
   end
   def get_friends
-    @player = Player.find(params[:id])
     @player.get_friends
     redirect_to action: 'show'
   end
@@ -85,11 +83,11 @@ class PlayersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_player
-      @player = Player.find(params[:id])
+      @player = Player.find(params[:id].to_s)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def player_params
-      params.require(:player).permit(:steam_id)
+      params.require(:player).permit(:account_id)
     end
 end
