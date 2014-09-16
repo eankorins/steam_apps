@@ -5,7 +5,6 @@ class Player < ActiveRecord::Base
 	include ApplicationHelper
 
 	after_create :get_profile
-	before_create :to_acc_id
 	has_many :playedgames, :dependent => :destroy
 	has_many :games, :through => :playedgames
 	has_many :completed_achievements, :dependent => :destroy
@@ -101,13 +100,13 @@ class Player < ActiveRecord::Base
 
 		unless friends.nil?
 			friends.each do |f| 
-				if player = Player.find_by(:account_id => f.steam_id)
+				if player = Player.find_by(:account_id => to_account_id(f.steam_id))
 					unless self.friends.find_by(:account_id => player.account_id)
 						self.friendships.create(:friend_id => player.id)
 					end
 				else
-					p = Player.create(:account_id => f.steam_id) 
-					self.friendships.create(:friend_id => p.id )
+					p = Player.create(:account_id => to_account_id(f.steam_id)) 
+					self.friendships.build(:friend_id => p.id)
 					sleep(1)
 				end		
 			end

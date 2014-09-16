@@ -57,6 +57,6 @@ module ApplicationHelper
 
 	def to_account_id(id)
 
-		id.to_i
+		(id.to_i - 76561197960265728)
 	end
 end
