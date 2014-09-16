@@ -12,7 +12,7 @@ class MatchWorker
 			all_matches << history.matches 
 			puts history.remaining_count.to_s << " remaining"
 			min_id = history.matches.map(&:id).min
-		end until history.remaining_count
+		end until history.remaining_count == 0
 		all_matches.flatten.each do |m|
 			if Match.find_by(:match_id => m.id).blank?
 				m = Match.new(to_match(Steam.match(m.id)))

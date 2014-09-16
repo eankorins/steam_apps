@@ -52,11 +52,11 @@ module ApplicationHelper
 	end
 
 	def to_steam_id(id)
-		(id.to_i + 76561197960265728)
+		(id.to_i + 76561197960265728).to_s
 	end
 
 	def to_account_id(id)
 
-		(id.to_i - 76561197960265728)
+		(id.to_i - 76561197960265728).to_s
 	end
 end
