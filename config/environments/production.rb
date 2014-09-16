@@ -13,6 +13,10 @@ Rails.application.configure do
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
+
+  heroku config:add HEROKU_API_KEY=8cceeaf2-343c-4ed8-841c-f88fa6c7afab
+  heroku config:add HEROKU_APP=tranquil-sierra-5827
+  
   Steam.configure do |config|
     config.api_key = 'A8229F479840DA66362A59443FF717CF'
   end
