@@ -4,7 +4,7 @@ class Player < ActiveRecord::Base
 	include PlayersHelper
 	include ApplicationHelper
 
-	before_save :get_profile
+	before_create :get_profile
 	
 	has_many :playedgames, :dependent => :destroy
 	has_many :games, :through => :playedgames
