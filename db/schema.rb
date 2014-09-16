@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140916154930) do
+ActiveRecord::Schema.define(version: 20140916195135) do
 
   create_table "achievements", force: true do |t|
     t.string   "name"
@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(version: 20140916154930) do
     t.string   "items"
     t.string   "additional_unit_items"
     t.string   "additional_unit_names"
-    t.string   "upgrades"
+    t.text     "upgrades"
   end
 
   add_index "participants", ["player_id"], name: "index_participants_on_player_id"
