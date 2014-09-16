@@ -15,7 +15,7 @@ class PlayersController < ApplicationController
   # GET /players/1
   # GET /players/1.json
   def show
-    @player = Player.find(params[:id])
+    @player = Player.find(params[:id].to_s)
     puts "#{@player.updated_at}      <    #{10.minutes.ago.utc}"
     if @player.updated_at < 24.hours.ago.utc
       @player.get_profile
