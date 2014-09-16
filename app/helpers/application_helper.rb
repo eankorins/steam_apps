@@ -1,3 +1,5 @@
+require 'steam'
+
 module ApplicationHelper
 	def to_match(match)
 	{
