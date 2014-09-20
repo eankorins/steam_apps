@@ -1,0 +1,15 @@
+<table><% participations.each do |part|%>
+	<tr class="row <%= part.winner %>">
+		<td>
+			<%= link_to part.hero, part.match %>
+		</td>
+		<td>
+			<%= part.side %>
+		</td>
+		<td>
+			<%= part.kda %>
+		</td>
+	</tr>
+<%end%>
+</table>
+<%= will_paginate @match_participations, :param_name => 'part_page' %>

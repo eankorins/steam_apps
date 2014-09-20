@@ -9,4 +9,9 @@ module PlayersHelper
 			sleep(1)
 		end
 	end
+		def hero_list
+		(1..110).map do |i|
+			[Steam::Constants::Heroes[i], i]
+		end - [nil]
+	end
 end

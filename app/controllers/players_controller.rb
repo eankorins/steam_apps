@@ -1,5 +1,5 @@
 class PlayersController < ApplicationController
-
+  protect_from_forgery :except => [:hero_matches]
   require 'will_paginate/array'
   include PlayersHelper
 
@@ -15,14 +15,9 @@ class PlayersController < ApplicationController
   # GET /players/1
   # GET /players/1.json
   def show
-    puts "#{@player.updated_at}      <    #{10.minutes.ago.utc}"
-    if @player.updated_at < 24.hours.ago.utc
-      @player.get_profile
-    end
-    @friendships = @player.friendships.paginate(:page => params[:page], :per_page => 30)
-    sortedgames = @player.playedgames.by_time_played.paginate(:page => params[:page], :per_page => 30)
-    @playedgames = sortedgames
-    @match_participations = @player.participations.sort_by{ |x|x.match.start_time }.reverse.paginate(:page => params[:part_page], :per_page => 30)
+    matches = @player.participations.sort_by{ |x|x.match.start_time }.reverse!.to_a
+    @match_participations = matches.paginate(:page => params[:part_page], :per_page => 30)
+    @heroes = Hero.all.sort_by(&:name)
   end
 
   # GET /players/new
@@ -36,8 +31,7 @@ class PlayersController < ApplicationController
   # POST /players
   # POST /players.json
   def create
-    id = player_params[:account_id].to_i - 76561197960265728
-    @player = Player.new(:account_id => id.to_s)
+    @player = Player.new(:account_id => id)
 
     respond_to do |format|
       if @player.save
@@ -61,6 +55,13 @@ class PlayersController < ApplicationController
         format.html { render :edit }
         format.json { render json: @player.errors, status: :unprocessable_entity }
       end
+    end
+  end
+  def hero_matches
+    @player = Player.find(params[:id].to_s)
+    @match_participations = @player.participations.where(:hero_id => params[:hero_id].to_i).sort_by{ |x|x.match.start_time }.reverse!.paginate(:page => params[:part_page], :per_page => 30)
+    respond_to do |format|
+        format.js
     end
   end
   def get_friends

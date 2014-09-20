@@ -112,6 +112,14 @@ module Steam
       raw_match['barracks_status_dire']
     end
 
+    def radiant_captain
+      raw_match['radiant_captain'] rescue "NA"
+    end
+
+    def dire_captain
+      raw_match['dire_captain'] rescue "NA"
+    end
+
     class Player < Steam::BasicPlayer
 
       # The number of kills the player got

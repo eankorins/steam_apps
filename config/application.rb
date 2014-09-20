@@ -8,6 +8,8 @@ Bundler.require(*Rails.groups)
 
 module SteamApps
   class Application < Rails::Application
+    ENV["HERO_IMG_URL"] = "http://media.steampowered.com/apps/dota2/images/heroes/"
+    ENV["ITEM_IMG_URL"] = "http://media.steampowered.com/apps/dota2/images/items/"
     config.autoload_paths += %W(#{config.root}/app/workers)
     config.autoload_paths += %W(#{config.root}/lib)
     config.autoload_paths += Dir["#{config.root}/lib/**/"]

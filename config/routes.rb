@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+  resources :heros
+
   resources :participants
 
   resources :matches
@@ -13,6 +15,7 @@ Rails.application.routes.draw do
     member do
       get :get_friends
       get :get_matches
+      get :hero_matches
     end
   end
 

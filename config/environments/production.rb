@@ -13,7 +13,6 @@ Rails.application.configure do
   config.action_controller.perform_caching = true
 
 
-
   Steam.configure do |config|
     config.api_key = 'A8229F479840DA66362A59443FF717CF'
   end

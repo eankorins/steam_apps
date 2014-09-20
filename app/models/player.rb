@@ -14,7 +14,9 @@ class Player < ActiveRecord::Base
 	has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
 	has_many :inverse_friends, :through => :inverse_friendships, :source => :user
 	has_many :participations, :class_name => "Participant"
+	has_many :heroes, -> {uniq},  :through => :participations, :source => :hero
 	has_many :matches, :through => :participations, :source => :match
+	has_many :dota_stats, :class_name => "DotaStats"
 	validates :account_id, presence: true, uniqueness: {case_sensitive:false}
 
 	scope :by_achievement_count, -> { joins(:playedgames).order(PlayedGame.by_achievement_count) }
@@ -65,10 +67,27 @@ class Player < ActiveRecord::Base
 		end
 	end
 
-	def wins 
-		participations.select{ |x| x.side.downcase == x.match.winner }.count
+	def hero_matches(id)
+		matches = self.participations.select { |p| p.hero_id == id}
+		matches
 	end
 
+	def total_wins
+		wins.count
+	end
+
+	def wins 
+		participations.select{ |x| x.side.downcase == x.match.winner && x.match.lobby_type != "Co-op with bots"}
+	end
+
+	def losses
+		participations.select{ |x| x.side.downcase != x.match.winner && x.match.lobby_type != "Co-op with bots"}
+	end
+
+	def record
+		"#{total_wins} - #{participations.count - total_wins}"
+	end
+	
 	def get_profile
 		profile = Steam.profile(self.steam_id)
 

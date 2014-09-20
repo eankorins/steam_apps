@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140916195135) do
+ActiveRecord::Schema.define(version: 20140920180616) do
 
   create_table "achievements", force: true do |t|
     t.string   "name"
@@ -35,6 +35,23 @@ ActiveRecord::Schema.define(version: 20140916195135) do
     t.datetime "updated_at"
   end
 
+  create_table "dota_stats", force: true do |t|
+    t.string  "player_id"
+    t.string  "winning_kda"
+    t.string  "losing_kda"
+    t.string  "string"
+    t.string  "avg_kda"
+    t.integer "radiant_matches"
+    t.integer "dire_matches"
+    t.integer "most_played_hero"
+    t.string  "most_played_mode"
+    t.string  "most_played_with"
+    t.integer "wins"
+    t.integer "losses"
+  end
+
+  add_index "dota_stats", ["player_id"], name: "index_dota_stats_on_player_id"
+
   create_table "friendships", force: true do |t|
     t.integer  "player_id"
     t.integer  "friend_id"
@@ -55,6 +72,13 @@ ActiveRecord::Schema.define(version: 20140916195135) do
   end
 
   add_index "games", ["appid"], name: "index_games_on_appid", unique: true
+
+  create_table "heroes", id: false, force: true do |t|
+    t.integer  "id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "matches", force: true do |t|
     t.integer  "match_id"

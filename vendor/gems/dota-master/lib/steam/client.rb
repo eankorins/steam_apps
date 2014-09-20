@@ -10,6 +10,7 @@ require 'steam/ban'
 require 'steam/friend'
 require 'steam/owned_app'
 require 'steam/game_scheme'
+require 'steam/hero'
 
 module Steam
   class Client
@@ -29,6 +30,14 @@ module Steam
       @connection ||= Connection.new
     end
 
+    def heroes
+      response = run_request('GetHeroes', {}, 'IEconDota2_570')
+      if heroes = response['result']['heroes']
+        heroes.map do |hero|
+          Hero.new(hero)
+        end
+      end
+    end
     # Match details
     #
     # @param [Integer] match id

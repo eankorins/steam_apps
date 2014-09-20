@@ -1,3 +1,4 @@
+<%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %> 
 <p id="notice"><%= notice %></p>
 <div class="row">
 	<div class="span4">
@@ -30,32 +31,21 @@
 		</p>
 	</div>
 </div>
+<hidden name="player_id" value=<%= @player.account_id %>
 <div class="row">
-	<div class= "span4">
-
-		<p>
-			<h2>Games </h2>
-			<h5>Total time played: <%= @player.total_time_played_string %> </h5>
-		    <%= render @playedgames %>
-		  	<%= will_paginate @playedgames %>
-		</p>
-<!-- 		<p>
-			<h2>Friends</h2> <%= link_to "Update", action: "get_friends", id: @player %>
-			<h5>Total friends: <%= @friendships.count %></h5>
-			<table>
-				<%= render @friendships %>
-			</table>
-			<%= will_paginate @friendships %>
-		</p> -->
+	<div class="span8">
+	<div name="test_grid" id="tgrid">
 	</div>
-
-	<div class="span4">
-		<h2>Dota matches (<%= @player.wins %>) </h2>
+		<h2>Dota matches (<%= @player.record %>) </h2>
 		<%= link_to "Update", action: "get_matches", id: @player %>
-		<table>
-		<%= render @match_participations %>
-		</table>
-		<%= will_paginate @match_participations, :param_name => 'part_page' %>
+
+		<%= select_tag :hero_id, options_from_collection_for_select(@heroes, 'id', 'name'), :'data-remote' => 'true', :'data-url' => url_for(:controller => 'players', :action => 'show') %>
+		<%= content_tag "div", :id=> "pgrid", :name => "participation_grid" do %>
+		<%= render partial: 'participation_list', locals: { participations: @match_participations}%>
+		
+		<%end%>
+
+		
 	</div>
 </div>
 <%= link_to 'Edit', edit_player_path(@player) %> |

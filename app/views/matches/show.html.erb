@@ -73,7 +73,7 @@
 	    	<%= @match.dire_tower_status %>
 	    </p>
 	    <p>
-	    <strong> Radiant_barracks_status</strong>
+	    <strong> Radiant_barrks_status</strong>
 	    	<%= @match.radiant_barracks_status %>
 	    </p>
 	    <p>
@@ -81,15 +81,37 @@
 	    	<%= @match.dire_barracks_status %>
 	    </p>
     </div>
-	<div class="span4">
-		<% @match.participants.each do |part| %>
+	<div class="span8">
+		<h2> Radiant </h2>
+		<% @match.radiant.each do |part| %>
 			<div class="row">
-				<div class="span2">
-					<%= part.player.name rescue 0 %> <%= part.player_slot %>
+				<div class ="span3 offset1">
+					<img src=<%= part.hero_small_img %>></img>
+					<%= part.player.name rescue "NA" %> 
+				</div>
+				<div class = "span4">
+					<%= part.kda %>
+				</div>
+			</div>
+		<%end%>
+		<h2> Dire </h2>
+		<% @match.dire.each do |part| %>
+			
+			<div class="row">
+				<div class ="span3 offset1">
+					<img src=<%= part.hero_small_img %>></img>
+					<%= part.player.name rescue "NA" %> 
+					<% part.item_imgs.each do |img| %>
+						<img src=<%= img %> ></img>
+					<%end%>
+				</div>
+				<div class = "span4">
+					<%= part.kda %>
 				</div>
 			</div>
 		<%end%>
 	</div>
 </div>
+
 <%= link_to 'Edit', edit_match_path(@match) %> |
 <%= link_to 'Back', matches_path %>
