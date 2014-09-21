@@ -7,8 +7,8 @@ Rails.application.configure do
   config.cache_classes = false
   ENV["REDISTOGO_URL"] = 'redis://redistogo:11753612c96ed6a7442c8e4aa2e8c232@angelfish.redistogo.com:9159'
   # Do not eager load code on boot.
-  config.eager_load = false
-  config.assets.precompile = ['*.js', '*.css', '*.css.erb']
+  config.eager_load = true
+  config.assets.precompile = ['*.js', '*.scss']
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
