@@ -18,6 +18,7 @@ class PlayersController < ApplicationController
     matches = @player.participations.sort_by{ |x|x.match.start_time }.reverse!.to_a
     @match_participations = matches.paginate(:page => params[:part_page], :per_page => 30)
     @heroes = Hero.all.sort_by(&:name)
+    @stats = @player.dota_stats.first
   end
 
   # GET /players/new
@@ -70,6 +71,11 @@ class PlayersController < ApplicationController
   end
   def get_matches
     MatchWorker.perform_async(params[:id])
+    redirect_to action: 'show'
+  end
+  def update_stats
+    set_player
+    @player.dota_stats.first.update_stats
     redirect_to action: 'show'
   end
   # DELETE /players/1

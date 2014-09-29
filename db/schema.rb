@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20140920180616) do
     t.string  "avg_kda"
     t.integer "radiant_matches"
     t.integer "dire_matches"
-    t.integer "most_played_hero"
+    t.string  "most_played_hero"
     t.string  "most_played_mode"
     t.string  "most_played_with"
     t.integer "wins"

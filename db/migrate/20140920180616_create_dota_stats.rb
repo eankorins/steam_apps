@@ -8,7 +8,7 @@ class CreateDotaStats < ActiveRecord::Migration
       t.string :avg_kda
       t.integer :radiant_matches
       t.integer :dire_matches
-      t.integer :most_played_hero
+      t.string :most_played_hero
       t.string :most_played_mode
       t.string :most_played_with
       t.integer :wins

@@ -84,13 +84,21 @@ class Player < ActiveRecord::Base
 		participations.select{ |x| x.side.downcase != x.match.winner && x.match.lobby_type != "Co-op with bots"}
 	end
 
+	def radiant_matches
+		participations.select { |x| x.side.downcase == "radiant" }
+	end
+
+	def dire_matches
+		participations.select { |x| x.side.downcase == "dire" }
+	end
+
 	def record
 		"#{total_wins} - #{participations.count - total_wins}"
 	end
 	
 	def get_profile
 		profile = Steam.profile(self.steam_id)
-
+		profile.dota_stats.create
 		if profile 
 			self.name = profile.person_name
 			self.real_name = profile.real_name

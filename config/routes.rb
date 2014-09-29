@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     member do
       get :get_friends
       get :get_matches
+      get :update_stats
       get :hero_matches
     end
   end
