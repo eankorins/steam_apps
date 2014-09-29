@@ -46,8 +46,9 @@ class DotaStats < ActiveRecord::Base
 		played_with = player.matches.map { |x| x.participants }.flatten.map! { |x| x.player_id }
 		played_with = played_with - [player.account_id, "4294967295", "0"]
 		player, count = max_by(count_by(played_with))
-
-		"#{player} (#{count})"
+		p = Player.find_by(:account_id => player)
+		name = p.nil? ? player : p.name
+		"#{name} (#{count})"
 	end
 
 	def max_by(hash)
