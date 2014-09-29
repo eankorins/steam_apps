@@ -59,6 +59,4 @@ module ApplicationHelper
 
 		(id.to_i - 76561197960265728).to_s
 	end
-
-
 end
