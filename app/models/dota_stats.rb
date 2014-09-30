@@ -92,31 +92,52 @@ class DotaStats < ActiveRecord::Base
 			months.each do |month, matches|
 				record = matches.map { |x| x.winner}
 				record = record.inject(Hash.new(0)) { |hash, v| hash[v] += 1; hash }
-				wins = record['winner'].to_f
-				losses = record['loser'].to_f
-				result = ((wins / (wins + losses)) * 100).round(2)
+				w = record['winner']
+				l = record['loser']
+				result = [w, l]
 				grouped[year][month] = result
 			end
 		end
 
-		categories = []
-		data = []
-		years.each do |year|
-			temp_cats = months.each do |month|
-				if not grouped[year][month].nil?
-					categories << "#{year} - #{Date::MONTHNAMES[month]}"
-					data << grouped[year][month]
-				end
-			end
-		end.flatten
-
+		
 		chart = LazyHighCharts::HighChart.new('graph') do |f|
 			f.title(:text => "Monthly Win Records")
+			categories = []
+			ws = []
+			ls = []
+			ratio = []
+			grouped.each do |year, m|
+				m.each do |month, (w, l)|
+					if w != 0 && l != 0
+						categories << "#{year} #{Date::MONTHNAMES[month]}"
+						ws << w
+						ls << l
+					end
+				end
+			end
 			f.xAxis(:categories => categories)
-			f.series(:name => "%", :data => data)
+			f.series({:name => 'losses', :data => ls, :color => 'red'})
+			f.series({:name => 'wins', :data => ws, :color => 'green'})
+
 			f.legend(:align => 'right', :verticalAlign => 'top', :y => 75, :x => -50, :layout => 'vertical',)
+			f.tooltip(pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',)
+			f.plotOptions(
+				{ :bar => 
+					{ 
+						:stacking => 'normal', 
+						:dataLabels => 
+							{
+								:enable => true, 
+								:color => 'black',
+								:background => 'red',
+								:style => {
+									:textShadow => '0 0 3px black, 0 0 3px black'
+								}
+							}
+					}
+				}
+			)
 			f.chart({:defaultSeriesType => "bar"})
 		end
-		
 	end
 end
