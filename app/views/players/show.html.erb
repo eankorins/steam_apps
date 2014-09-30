@@ -31,7 +31,7 @@
 		</p>
 	</div>
 </div>
-<hidden name="player_id" value=<%= @player.account_id %>
+<hidden name="player_id" value=<%= @player.account_id %>></hidden>
 <div class="row">
 	<div class="span6">
 		<h2>Dota matches</h2>
@@ -49,5 +49,11 @@
 		<%= render partial: "dotastats/dotastat", locals: { stats: @stats } %>
 	</div>
 </div>
+<div class="row">
+	<div class="span8">
+		<%= high_chart("monthly_record", @stats.monthly_record_chart) %>
+	</div>
+</div>
+
 <%= link_to 'Edit', edit_player_path(@player) %> |
 <%= link_to 'Back', players_path %>

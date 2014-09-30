@@ -1,3 +1,5 @@
+require 'lazy_high_charts'
+
 class DotaStats < ActiveRecord::Base
 	belongs_to :player, :foreign_key => "player_id"
 	has_many :participations, :through => :player, :source => :participations
@@ -58,5 +60,63 @@ class DotaStats < ActiveRecord::Base
 
 	def count_by(arr)
 		(arr).inject(Hash.new(0)){ |hash,key| hash[key] += 1; hash}
+	end
+
+	def group_by_month(arr)
+		grouped = {}
+		years = arr.map { |a,b| a.year }.uniq.sort
+
+		years.each do |y|
+			grouped[y] = (1..12).inject({}) { |hash, v| hash[v] = []; hash }
+		end
+
+		arr.each do |date, match |
+			grouped[date.year][date.month] << match
+		end
+
+		grouped
+	end
+
+	def monthly_record_chart
+		games = player.participations.map do |part|
+			[part.match.start_time, part]
+		end
+
+		grouped = group_by_month(games)
+
+		years = []
+		months = (1..12).to_a 
+
+		grouped.each do |year, months|
+			years << year
+			months.each do |month, matches|
+				record = matches.map { |x| x.winner}
+				record = record.inject(Hash.new(0)) { |hash, v| hash[v] += 1; hash }
+				wins = record['winner'].to_f
+				losses = record['loser'].to_f
+				result = ((wins / (wins + losses)) * 100).round(2)
+				grouped[year][month] = result
+			end
+		end
+
+		categories = []
+		data = []
+		years.each do |year|
+			temp_cats = months.each do |month|
+				if not grouped[year][month].nil?
+					categories << "#{year} - #{Date::MONTHNAMES[month]}"
+					data << grouped[year][month]
+				end
+			end
+		end.flatten
+
+		chart = LazyHighCharts::HighChart.new('graph') do |f|
+			f.title(:text => "Monthly Win Records")
+			f.xAxis(:categories => categories)
+			f.series(:name => "%", :data => data)
+			f.legend(:align => 'right', :verticalAlign => 'top', :y => 75, :x => -50, :layout => 'vertical',)
+			f.chart({:defaultSeriesType => "bar"})
+		end
+		
 	end
 end
