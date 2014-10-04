@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140920180616) do
+ActiveRecord::Schema.define(version: 20141004075813) do
 
   create_table "achievements", force: true do |t|
     t.string   "name"
@@ -78,6 +78,9 @@ ActiveRecord::Schema.define(version: 20140920180616) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "wins"
+    t.integer  "losses"
+    t.integer  "kda"
   end
 
   create_table "matches", force: true do |t|

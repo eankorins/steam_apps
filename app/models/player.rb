@@ -72,12 +72,13 @@ class Player < ActiveRecord::Base
 		matches
 	end
 
-	def total_wins
-		wins.count
-	end
 
 	def wins 
 		participations.select{ |x| x.side.downcase == x.match.winner && x.match.lobby_type != "Co-op with bots"}
+	end
+
+	def total_wins
+		wins.count
 	end
 
 	def losses

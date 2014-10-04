@@ -1,34 +1,34 @@
 require "spec_helper"
 
-describe HerosController do
+describe heroesController do
   describe "routing" do
 
     it "routes to #index" do
-      get("/heros").should route_to("heros#index")
+      get("/heroes").should route_to("heroes#index")
     end
 
     it "routes to #new" do
-      get("/heros/new").should route_to("heros#new")
+      get("/heroes/new").should route_to("heroes#new")
     end
 
     it "routes to #show" do
-      get("/heros/1").should route_to("heros#show", :id => "1")
+      get("/heroes/1").should route_to("heroes#show", :id => "1")
     end
 
     it "routes to #edit" do
-      get("/heros/1/edit").should route_to("heros#edit", :id => "1")
+      get("/heroes/1/edit").should route_to("heroes#edit", :id => "1")
     end
 
     it "routes to #create" do
-      post("/heros").should route_to("heros#create")
+      post("/heroes").should route_to("heroes#create")
     end
 
     it "routes to #update" do
-      put("/heros/1").should route_to("heros#update", :id => "1")
+      put("/heroes/1").should route_to("heroes#update", :id => "1")
     end
 
     it "routes to #destroy" do
-      delete("/heros/1").should route_to("heros#destroy", :id => "1")
+      delete("/heroes/1").should route_to("heroes#destroy", :id => "1")
     end
 
   end

@@ -83,33 +83,35 @@
     </div>
 	<div class="span8">
 		<h2> Radiant </h2>
+		<table>
 		<% @match.radiant.each do |part| %>
-			<div class="row">
-				<div class ="span3 offset1">
-					<img src=<%= part.hero_small_img %>></img>
-					<%= part.player.name rescue "NA" %> 
-				</div>
-				<div class = "span4">
-					<%= part.kda %>
-				</div>
-			</div>
-		<%end%>
-		<h2> Dire </h2>
-		<% @match.dire.each do |part| %>
-			
-			<div class="row">
-				<div class ="span3 offset1">
-					<img src=<%= part.hero_small_img %>></img>
-					<%= part.player.name rescue "NA" %> 
+			<tr>
+				<td><%= part.player.name rescue "Unknown" %> </td>
+				<td><img src=<%= part.hero_small_img(part.hero) %>></img></td>
+				<td>
 					<% part.item_imgs.each do |img| %>
 						<img src=<%= img %> ></img>
 					<%end%>
-				</div>
-				<div class = "span4">
-					<%= part.kda %>
-				</div>
-			</div>
+				</td>
+				<td><%= part.kda %></td>
+			</tr>
 		<%end%>
+		</table>
+		<h2> Dire </h2>
+		<table>
+		<% @match.dire.each do |part| %>
+			<tr>
+				<td><%= part.player.name rescue "Unknown" %> </td>
+				<td><img src=<%= part.hero_small_img(part.hero) %>></img></td>
+				<td>
+					<% part.item_imgs.each do |img| %>
+						<img src=<%= img %> ></img>
+					<%end%>
+				</td>
+				<td><%= part.kda %></td>
+			</tr>
+		<%end%>
+		</table>
 	</div>
 </div>
 

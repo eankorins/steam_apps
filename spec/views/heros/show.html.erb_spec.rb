@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "heros/show" do
+describe "heroes/show" do
   before(:each) do
     @hero = assign(:hero, stub_model(Hero,
       :id => 1,

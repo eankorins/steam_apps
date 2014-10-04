@@ -18,7 +18,7 @@ require 'spec_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-describe HerosController do
+describe heroesController do
 
   # This should return the minimal set of attributes required to create a valid
   # Hero. As you add validations to Hero, be sure to
@@ -27,14 +27,14 @@ describe HerosController do
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
-  # HerosController. Be sure to keep this updated too.
+  # heroesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
   describe "GET index" do
-    it "assigns all heros as @heros" do
+    it "assigns all heroes as @heroes" do
       hero = Hero.create! valid_attributes
       get :index, {}, valid_session
-      assigns(:heros).should eq([hero])
+      assigns(:heroes).should eq([hero])
     end
   end
 
@@ -102,7 +102,7 @@ describe HerosController do
     describe "with valid params" do
       it "updates the requested hero" do
         hero = Hero.create! valid_attributes
-        # Assuming there are no other heros in the database, this
+        # Assuming there are no other heroes in the database, this
         # specifies that the Hero created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
@@ -150,10 +150,10 @@ describe HerosController do
       }.to change(Hero, :count).by(-1)
     end
 
-    it "redirects to the heros list" do
+    it "redirects to the heroes list" do
       hero = Hero.create! valid_attributes
       delete :destroy, {:id => hero.to_param}, valid_session
-      response.should redirect_to(heros_url)
+      response.should redirect_to(heroes_url)
     end
   end
 

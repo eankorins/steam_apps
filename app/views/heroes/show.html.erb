@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-
+<img src=<%= part.hero_small_img(part.hero) %>></img>
 <p>
   <strong>Id:</strong>
   <%= @hero.id %>
@@ -11,4 +11,4 @@
 </p>
 
 <%= link_to 'Edit', edit_hero_path(@hero) %> |
-<%= link_to 'Back', heros_path %>
+<%= link_to 'Back', heroes_path %>

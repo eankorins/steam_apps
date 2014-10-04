@@ -1,28 +1,28 @@
-class HerosController < ApplicationController
+class HeroesController < ApplicationController
   before_action :set_hero, only: [:show, :edit, :update, :destroy]
 
-  # GET /heros
-  # GET /heros.json
+  # GET /heroes
+  # GET /heroes.json
   def index
-    @heros = Hero.all
+    @heroes = Hero.all
   end
 
-  # GET /heros/1
-  # GET /heros/1.json
+  # GET /heroes/1
+  # GET /heroes/1.json
   def show
   end
 
-  # GET /heros/new
+  # GET /heroes/new
   def new
     @hero = Hero.new
   end
 
-  # GET /heros/1/edit
+  # GET /heroes/1/edit
   def edit
   end
 
-  # POST /heros
-  # POST /heros.json
+  # POST /heroes
+  # POST /heroes.json
   def create
     @hero = Hero.new(hero_params)
 
@@ -37,8 +37,8 @@ class HerosController < ApplicationController
     end
   end
 
-  # PATCH/PUT /heros/1
-  # PATCH/PUT /heros/1.json
+  # PATCH/PUT /heroes/1
+  # PATCH/PUT /heroes/1.json
   def update
     respond_to do |format|
       if @hero.update(hero_params)
@@ -51,12 +51,12 @@ class HerosController < ApplicationController
     end
   end
 
-  # DELETE /heros/1
-  # DELETE /heros/1.json
+  # DELETE /heroes/1
+  # DELETE /heroes/1.json
   def destroy
     @hero.destroy
     respond_to do |format|
-      format.html { redirect_to heros_url, notice: 'Hero was successfully destroyed.' }
+      format.html { redirect_to heroes_url, notice: 'Hero was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

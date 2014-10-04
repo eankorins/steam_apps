@@ -35,9 +35,10 @@ group :production do
   gem 'rails_12factor', '0.0.2'
   gem 'unicorn'
   gem 'redis'
-  gem 'autoscaler'
+  
   gem 'sinatra'
 end
+gem 'autoscaler'
 gem 'hirb'
 gem 'lazy_high_charts'
 # Use SCSS for stylesheets

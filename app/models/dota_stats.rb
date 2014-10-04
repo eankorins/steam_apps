@@ -27,9 +27,9 @@ class DotaStats < ActiveRecord::Base
 
 		count = parts.count.to_f
 
-		avg_kills = (participations.map(&:kills).sum.to_f / count).round(2)
-		avg_assists = (participations.map(&:assists).sum.to_f / count).round(2)
-		avg_deaths = (participations.map(&:deaths).sum.to_f / count).round(2)
+		avg_kills = (parts.map(&:kills).sum.to_f / count).round(2)
+		avg_assists = (parts.map(&:assists).sum.to_f / count).round(2)
+		avg_deaths = (parts.map(&:deaths).sum.to_f / count).round(2)
 		"#{avg_kills}/#{avg_deaths}/#{avg_assists}"
 	end
 

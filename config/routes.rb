@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
 
-  resources :heros
+  resources :heroes
 
   resources :participants
 
