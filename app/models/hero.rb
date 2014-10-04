@@ -6,15 +6,23 @@ class Hero < ActiveRecord::Base
 	has_many :players, -> {uniq}, :through => :participations, :source => :player
 
 	def record
-		"#{wins.count} / #{losses.count} AverageKDA: "
+		"#{self.wins} / #{self.losses} AverageKDA: #{self.kda} Ratio: #{self.ratio}"
 	end
 
-	def wins 
+	def get_wins 
 		participations.select { |x| x.side.downcase == x.match.winner && x.match.lobby_type != "Co-op with bots" }
 	end
 
-	def losses
+	def get_losses
 		participations.select{ |x| x.side.downcase != x.match.winner && x.match.lobby_type != "Co-op with bots"}
+	end
+
+	def ratio
+		((self.kills + self.assists) / self.deaths).round(2)
+	end
+
+	def kda
+		"#{self.kills.round(2)}/#{self.deaths.round(2)}/#{self.assists.round(2)}"
 	end
 
 	def average_kda
@@ -23,13 +31,13 @@ class Hero < ActiveRecord::Base
 		avg_kills = (participations.map(&:kills).sum.to_f / count).round(2)
 		avg_assists = (participations.map(&:assists).sum.to_f / count).round(2)
 		avg_deaths = (participations.map(&:deaths).sum.to_f / count).round(2)
-		"#{avg_kills}/#{avg_deaths}/#{avg_assists}"
+		[avg_kills, avg_deaths, avg_assists]
 	end
 
 	def update_stats
-		self.wins = wins.count
-		self.losses = losses.count
-		self.kda = average_kda
+		self.wins = get_wins.count
+		self.losses = get_losses.count
+		self.kills, self.deaths, self.assists = average_kda.map!{ |x| x.round(2) }
 
 		self.save
 	end

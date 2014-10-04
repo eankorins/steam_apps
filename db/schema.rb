@@ -78,9 +78,12 @@ ActiveRecord::Schema.define(version: 20141004075813) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "kda"
     t.integer  "wins"
     t.integer  "losses"
-    t.integer  "kda"
+    t.decimal  "kills"
+    t.decimal  "assists"
+    t.decimal  "deaths"
   end
 
   create_table "matches", force: true do |t|
