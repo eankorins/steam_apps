@@ -1,6 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/spec'
-require 'webmock/minitest'
+
 require 'json'
 
 require 'steam'

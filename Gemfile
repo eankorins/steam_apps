@@ -4,9 +4,11 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
 gem 'sidekiq'
+gem 'pg'
 # Use sqlite3 as the database for Active Record
 group :development, :test do
-  gem 'sqlite3', '1.3.8'
+  #gem 'sqlite3', '1.3.8'
+
   gem 'rspec-rails', '2.13.1'
   # The following optional lines are part of the advanced setup.
   gem 'guard-rspec', '2.5.0'
@@ -20,7 +22,7 @@ group :test do
   gem 'factory_girl_rails', '4.2.0'
   gem 'cucumber-rails', '1.3.0', :require => false
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
-
+  gem 'minitest'
   # Uncomment this line on OS X.
   # gem 'growl', '1.0.3'
 
@@ -31,13 +33,13 @@ group :test do
   # gem 'wdm', '0.1.0'
 end
 group :production do
-  gem 'pg', '0.15.1'
-  gem 'rails_12factor', '0.0.2'
-  gem 'unicorn'
-  gem 'redis'
   
+  gem 'rails_12factor', '0.0.2'
   gem 'sinatra'
 end
+
+gem 'unicorn'
+gem 'redis'
 gem 'autoscaler'
 gem 'hirb'
 gem 'lazy_high_charts'
@@ -52,6 +54,7 @@ gem 'nifty-generators', :group => :development
 gem 'httparty'
 gem 'will_paginate'
 gem 'ffi'
+gem 'omniauth-steam'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 gem 'activerecord-import'

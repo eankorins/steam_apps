@@ -34,7 +34,6 @@ Rails.application.configure do
   Steam.configure do |config|
     config.api_key = 'A8229F479840DA66362A59443FF717CF'
   end
-
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end

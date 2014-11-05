@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20141004075813) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "achievements", force: true do |t|
     t.string   "name"
     t.integer  "game_id"
@@ -26,7 +29,7 @@ ActiveRecord::Schema.define(version: 20141004075813) do
     t.datetime "updated_at"
   end
 
-  add_index "achievements", ["name"], name: "index_achievements_on_name", unique: true
+  add_index "achievements", ["name"], name: "index_achievements_on_name", unique: true, using: :btree
 
   create_table "completed_achievements", force: true do |t|
     t.integer  "user_id"
@@ -50,7 +53,7 @@ ActiveRecord::Schema.define(version: 20141004075813) do
     t.integer "losses"
   end
 
-  add_index "dota_stats", ["player_id"], name: "index_dota_stats_on_player_id"
+  add_index "dota_stats", ["player_id"], name: "index_dota_stats_on_player_id", using: :btree
 
   create_table "friendships", force: true do |t|
     t.integer  "player_id"
@@ -71,14 +74,13 @@ ActiveRecord::Schema.define(version: 20141004075813) do
     t.integer  "playedgames_count",  default: 0
   end
 
-  add_index "games", ["appid"], name: "index_games_on_appid", unique: true
+  add_index "games", ["appid"], name: "index_games_on_appid", unique: true, using: :btree
 
   create_table "heroes", id: false, force: true do |t|
     t.integer  "id"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "kda"
     t.integer  "wins"
     t.integer  "losses"
     t.decimal  "kills"
@@ -109,7 +111,7 @@ ActiveRecord::Schema.define(version: 20141004075813) do
     t.integer  "dire_barracks_status"
   end
 
-  add_index "matches", ["match_id"], name: "index_matches_on_match_id"
+  add_index "matches", ["match_id"], name: "index_matches_on_match_id", using: :btree
 
   create_table "participants", force: true do |t|
     t.string   "player_id"
@@ -139,7 +141,7 @@ ActiveRecord::Schema.define(version: 20141004075813) do
     t.text     "upgrades"
   end
 
-  add_index "participants", ["player_id"], name: "index_participants_on_player_id"
+  add_index "participants", ["player_id"], name: "index_participants_on_player_id", using: :btree
 
   create_table "playedgames", force: true do |t|
     t.integer  "player_id"
@@ -149,7 +151,7 @@ ActiveRecord::Schema.define(version: 20141004075813) do
     t.datetime "updated_at"
   end
 
-  add_index "playedgames", ["player_id"], name: "index_playedgames_on_player_id"
+  add_index "playedgames", ["player_id"], name: "index_playedgames_on_player_id", using: :btree
 
   create_table "players", id: false, force: true do |t|
     t.string   "account_id",                         null: false
@@ -177,7 +179,7 @@ ActiveRecord::Schema.define(version: 20141004075813) do
     t.integer  "total_time",             default: 0
   end
 
-  add_index "players", ["account_id"], name: "index_players_on_account_id", unique: true
+  add_index "players", ["account_id"], name: "index_players_on_account_id", unique: true, using: :btree
 
   create_table "stats", force: true do |t|
     t.integer  "game_id"
@@ -188,6 +190,6 @@ ActiveRecord::Schema.define(version: 20141004075813) do
     t.datetime "updated_at"
   end
 
-  add_index "stats", ["name"], name: "index_stats_on_name", unique: true
+  add_index "stats", ["name"], name: "index_stats_on_name", unique: true, using: :btree
 
 end

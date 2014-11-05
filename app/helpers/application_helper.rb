@@ -52,11 +52,13 @@ module ApplicationHelper
 	end
 
 	def to_steam_id(id)
-		(id.to_i + 76561197960265728).to_s
+		return (id.to_i + 76561197960265728).to_s if id.to_i < 76561197960265728
+		return id
 	end
 
 	def to_account_id(id)
 
-		(id.to_i - 76561197960265728).to_s
+		return (id.to_i - 76561197960265728).to_s if id.to_i > 76561197960265728
+		return id
 	end
 end

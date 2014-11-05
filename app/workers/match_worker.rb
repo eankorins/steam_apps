@@ -16,8 +16,8 @@ class MatchWorker
 
 			end until history.remaining_count == 0 
 
-			all_matches.flatten.each do |m
-	|			if Match.find_by(:match_id => m.id).blank?
+			all_matches.flatten.each do |m|
+				if Match.find_by(:match_id => m.id).blank?
 					m = Match.new(to_match(Steam.match(m.id)))
 					m.save
 					sleep(1)
@@ -26,8 +26,9 @@ class MatchWorker
 
 			player.dota_stats.first.update_stats
 			puts "Done"
-		rescue
+		rescue Exception => ex
 			puts "Broken"
+			puts ex.message
 		end
 	end
 end

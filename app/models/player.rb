@@ -4,15 +4,9 @@ class Player < ActiveRecord::Base
 	include PlayersHelper
 	include ApplicationHelper
 
-	after_create :get_profile
+	after_create :save_player
 	has_many :playedgames, :dependent => :destroy
 	has_many :games, :through => :playedgames
-	has_many :completed_achievements, :dependent => :destroy
-	has_many :achievements, :through => :completed_achievements
-	has_many :friendships
-	has_many :friends, :through => :friendships
-	has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
-	has_many :inverse_friends, :through => :inverse_friendships, :source => :user
 	has_many :participations, :class_name => "Participant"
 	has_many :heroes, -> {uniq},  :through => :participations, :source => :hero
 	has_many :matches, :through => :participations, :source => :match
@@ -98,8 +92,12 @@ class Player < ActiveRecord::Base
 	end
 	
 	def get_profile
-		profile = Steam.profile(self.steam_id)
-		profile.dota_stats.create
+		profile = Steam.profile(self.steam_id) if name.nil?
+	end
+
+	def save_player(profile = nil)
+		profile = get_profile if profile.nil?
+		self.dota_stats.create
 		if profile 
 			self.name = profile.person_name
 			self.real_name = profile.real_name
@@ -123,6 +121,7 @@ class Player < ActiveRecord::Base
 		self.save
 		player_games
 	end
+
 	def get_friends
 		friends = Steam.friends(self.steam_id)
 

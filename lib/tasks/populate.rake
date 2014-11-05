@@ -12,6 +12,10 @@ namespace :db do
 	task get_all_games: :environment do
 		get_matches_by_sequence
 	end
+
+	task get_heroes: :environment do
+		get_heroes
+	end
 end
 
 
@@ -58,4 +62,10 @@ def get_matches_by_sequence
 
 		puts "time run: " << total_time_run.to_s << " total games added: " << total_games_added.to_s
 	end until sequence.count == 0	
+end
+
+def get_heroes
+	Steam.heroes.each do |hero|
+		Hero.create(:id => hero.id, :name => hero.name)
+	end
 end
